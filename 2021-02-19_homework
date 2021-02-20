@@ -1,0 +1,50 @@
+package b_operator;
+import java.util.Scanner; 
+public class SimpleCaculator {
+
+	public static void main(String[] args) {
+		//두개의 숫자와 연산자를 입력 받아 연산결과를 알려주는 프로그램을 만들어주세요.
+		//숫자 2개 입력받아
+		//연산자도 입력받아
+		//프로그램 만들어
+	
+		Scanner sc = new Scanner(System.in);
+		
+	
+			
+				System.out.println("첫번째 숫자를 입력하세요");
+				int num1 = Integer.parseInt(sc.nextLine());
+				System.out.println(num1);
+				
+				System.out.println("+,-,*,/ 중 1개 연산자를 입력해주세요.");
+				String str1 = sc.nextLine();
+				System.out.println(str1);
+				
+				System.out.println("두번째 숫자를 입력하세요");
+				int num2 = Integer.parseInt(sc.nextLine());
+				System.out.println(num2);
+				
+				/*int result1 = num1 + num2; 
+				System.out.println(result1);	
+				
+				int result2 = num1 - num2;
+				System.out.println(result2);
+				
+				int result3 = num1 * num2;
+				System.out.println(result3);
+				
+				int result4 = num1 / num2;
+				System.out.println(result4);
+	
+				int num = Integer.parseInt(sc.nextLine());
+				//or and는 비교연산자라 num=1 num=3 비교대상이 같아야해*/
+				
+			
+				double result = (str1.equals("+"))? num1+ num2: (str1.equals("-"))? num1-num2: (str1.equals("*"))? num1 * num2 : (num1/num2); 
+				System.out.println(result);
+	
+				sc.close();
+	}
+
+
+}
