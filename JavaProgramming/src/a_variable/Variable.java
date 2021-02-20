@@ -261,7 +261,7 @@ public class Variable { // {중괄호: 블록 중괄호 안: class 내용}
 		
 		
 		sc.close();
-		
+	
 	}
 
 }
