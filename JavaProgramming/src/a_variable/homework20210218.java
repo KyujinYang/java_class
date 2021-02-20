@@ -49,9 +49,11 @@ package a_variable;
 		System.out.println("회원가입 완료!!");
 		System.out.println("========내 정보========");
 		System.out.println("아이디: " + id + "\n비밀번호: " + password + "\n이름 " + name + "\n나이: "+ age + "\n키= " + height);
-		
+	
+		sc.close();
 	} 
 	
 	
 }
+	
 	
