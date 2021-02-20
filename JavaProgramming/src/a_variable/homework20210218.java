@@ -22,7 +22,7 @@ package a_variable;
 					키: 185.5cm
 */
 		Scanner sc = new Scanner(System.in);
-		
+	
 		System.out.println("========회원가입========");
 		
 		String id;
