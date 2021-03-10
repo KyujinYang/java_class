@@ -1,0 +1,44 @@
+package a_variable;
+
+import java.util.Scanner;
+
+public class Homework {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("================회원가입================");
+
+		String myId;
+		System.out.print("아이디>");
+		myId = sc.nextLine();
+
+		int myPassword;
+		System.out.print("비밀번호>");
+		myPassword = Integer.parseInt(sc.nextLine());
+
+		String myName;
+		System.out.print("이름>");
+		myName = sc.nextLine();
+
+		int myAge;
+		System.out.print("나이>");
+		myAge = Integer.parseInt(sc.nextLine());
+
+		double myHeight;
+		System.out.print("키>");
+		myHeight = Double.parseDouble(sc.nextLine());
+
+		System.out.println("회원가입완료!!");
+
+		System.out.println("=================내정보=================");
+		System.out.println("아이디: " + myId);
+		System.out.println("비밀번호: " + myPassword);
+		System.out.println("이름: " + myName);
+		System.out.println("나이: " + myAge);
+		System.out.println("키: " + myHeight);
+		sc.close();
+	}
+
+}
