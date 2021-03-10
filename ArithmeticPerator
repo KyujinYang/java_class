@@ -1,0 +1,170 @@
+package a_variable;
+
+public class ArithmeticPerator {
+
+	public static void main(String[] args) {
+		/*
+		   산술연산자
+		-사칙연산 : +, -, /, %(나머지)
+		-복합연산자 : +=, -=, *=, /=, %=
+		-증감연산자 : ++, -- (1만큼 증가, 1만큼 감소)
+		
+		*/
+			int result = 10 + 20 - 30 * 40 / 50 % 60;
+			
+			//연산순서는 보통의 수학 계산 순서와 똑같음
+			
+			//나머지 연산
+			result = 10 / 3;
+			System.out.println(result);
+			result = 10 % 3;
+			System.out.println(result);
+			
+			//5개의 산술연산자를 사용해 5개의 연산을 수행 후 결과를 출력해주세요.
+			
+			int a = 10 + 20 / 45 % 12 -60;
+			int b = 20 * 9;
+			int c = 50 % 7;
+			int d = 100 + 20 * 50;
+			int e = 50 / 2 * 4;
+			
+			// 이름 만들 때 꼭 소문자로!!
+			
+			System.out.println(a);
+			System.out.println(b);
+			System.out.println(c);
+			System.out.println(d);		
+			System.out.println(e);
+	
+	
+		//복합연산자
+		//변수에 저장되어 있는 값에 연산을 수행할 때 수행할 연산자와 대입연산자를 결합해 사용할 수 있다.
+		result = result + 3;
+		result += 3;
+		
+		result = result + 5;
+		result -= 5;
+		
+		result = result * 2;
+		result *= 2;
+		
+		//아래의 문장을 복합연산자를 사용한 문장으로 만들어주세요.
+		//result = result + 10;
+		result += 10;
+		
+		//result = result - 2 * 3
+		result -= 6;
+		result -= 2 * 3;
+		
+		//result = result % 5;
+		result %= 5;
+		
+		//증감연산자
+		//증감연산자(++) : 변수의 값을 1 증가시킨다.
+		//감소연산자(--) : 변수의 값을 1 감소시킨다.
+		
+		int i = 0;
+		++i; //전위형 : 변수의 값을 읽어오기 전에 1 증가한다.
+		i++; //후위형 : 변수의 값을 읽어온 후에 1증가된다.
+		--i; 
+		i--;
+		
+		i = 0;
+		System.out.println("++i = " + ++i); //먼저 값 증가 시키고 i값 읽어온다.
+		i = 0;
+		System.out.println("i++ = " + i++); //i의 값을 먼저 읽어오고 1을 증가시킨다.
+											//그래서 결과값은 0으로 나온다.
+		System.out.println(i); //결과값 1로 나온다.
+		
+		//피연산자의 타입이 서로 같아야만 연산이 가능하다.
+		int _int = 10;
+		double _double = 3.14;
+		double result2 = _int + _double; //표현범위가 더 큰 타입으로 '형변환'된다.
+		System.out.println(result2);
+		
+		//산술연산자 \= 이항 연산자 = 피연산자가 2개가 있다
+		//(산술 연산자는 연산자를 기준으로 연산의 대상이 되는 피연산자가 2개인데 그것을 2항 연산자라 함
+		//2항 연산자는 피연산자들끼리의 타입이 같아야만 연산이 가능함
+		// -> 특별히 형변환을 안 해주면 자동으로 형변환이 된다.
+		//작은쪽에서 큰쪽으로 변환할 때 위험이 없기 때문에 자동으로 작은쪽에서 큰쪽으로 형변환 됨.
+		
+		long _long = 100L;
+		_long = _int + _long;
+//		_int = _int + _long; //연산의 결과는 long인데 int 타입에 저장을 하려고 하니 오류가 뜬다. 
+        _int = _int + (int)_long; //위의 오류를 고치기 위해 직접 int 형변환
+        
+        byte _byte = 5;
+        short _short = 10;
+        _int = _byte + _short; //int보다 작은 타입은 int로 형변환된다.
+        System.out.println(_int);
+         
+        char _char = 'a'; // -> 유니코드라는 숫자로 문자를 저장하고 있음.
+        byte _char2 = 'b';
+        _int = _char + + _char2; //char 2바이트에서 4바이트 int로 자동 형변환 되어서 int로 계산이 가능함
+        System.out.println(_int); // -> 그래서 연산한 결과가 int로 나오는 것
+        
+        //오버플로우, 언더플로우
+        //표현범위를 벗어나는 값을 표현할 때 발생하는 현상
+        b = 127; //byte타입은 1바이트 -> 표현할 수 있는 범위 -128~127임.
+        b++;		  //마지노선인 127에 1을 더하면 오버플로우가 일어나고 가장 작은 값이 출력됨.
+        System.out.println(b);
+        
+        //이 반대의 경우가 언더플로우
+        b--;  //마지노선인 -128에서 1을 빼서 언더플로우가 일어나고 가장 큰 값이 출력됨.
+        System.out.println(b);
+        
+        //다음을 한줄씩 계산해서 최종 결과값을 출력해주세요.
+        //1. 123456+654321
+        //2. 1번의 결과값 * 123456
+        //3. 2번의 결과값 / 123456
+        //4. 3번의 결과값 - 654321
+        //5. 4번의 결과값 % 123456
+        
+        
+        long num = 123456 + 654321; //연산을 할때는 연산의 범위를 미리 예측하고 변수 설정을 해주어야 함.
+        num *= 123456;
+        num /= 123456;
+        num -= 654321;
+        num %= 123456;
+        
+        System.out.println(num);
+        
+        //3개의 int형 변수를 선언 및 초기화 후 합계와 평균을 구해주세요.
+        
+        int num4 = 10, num5 = 20, num6 = 30;
+        int sum;
+        double average;
+        
+        sum = num4 + num5 + num6;
+        average = sum / 3.0;
+        
+        System.out.println("합계는 " + sum + ", 평균은 " + average);
+        
+        //선생님 답
+        int num1 = 15;
+        int num2 = 34;
+        int num3 = 49;
+        int sum2 = num1 + num2 + num3;
+        double avg = sum2 / 3.0;
+        System.out.println("sum : " + sum + " / avg : " + avg);
+        
+        //반올림
+        //반올림 매서드 -> Math.round(반올림 하고 싶은 값) => 반올림된 값을 넘겨준다.
+        
+//       avg = Math.round(avg);
+//       System.out.println(avg);
+         avg = Math.round(avg * 10) / 10.0; //소수점을 한칸 옮기기 위해서 10을 곱한다.
+//       avg = Math.round(avg * 100) / 100.0; // 소수점 둘째자리까지 나온다.  
+         System.out.println(avg);
+         
+         //랜덤한 수를 발생시키는 방법
+         Math.random(); //=> 랜덤 매서드, 0.0 ~ 1.0미만(0.999999...)의 수를 발생시켜준다.
+         int random = 
+        		 (int)(Math.random() * 100) + 1; //1부터 100사이의 랜덤한 수를 나타내기 위해 100 곱하고 1을 더함
+         System.out.println(random);
+        
+         //랜덤매서드는 앞으로 많이 쓸 것이니 꼭 알아두기
+        
+	}
+
+}
