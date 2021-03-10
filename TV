@@ -1,0 +1,43 @@
+package e_oop;
+
+public class TV {
+
+	// 대상이 가지고 있는 속성: 클래스
+	// 대상이 가지고 있는 동작: 메서드
+
+	// 전원, 채널 , 볼륨 - 속성
+	// 전원 - 버튼을 눌러
+	// 채널,볼륨 - 위아래버튼 누르기
+
+	// 1.전원 ON
+	// 2.전원 OFF
+
+	// 1.숫자입력해 채널 변경하는 메서드
+	// 2.채널 올리기
+	// 3.채널 내리기
+
+	// 1.볼륨 올리기
+	// 2.볼롬 내리기
+
+	boolean power;
+	int volumm;
+	int channel;
+	
+
+	
+	void channelUp() {
+		++channel;
+	}
+
+	void channelDown() {
+		--channel;
+	}
+
+	void volummUp() {
+		++volumm;
+	}
+
+	void volummDown() {
+		--volumm;
+	}
+}
