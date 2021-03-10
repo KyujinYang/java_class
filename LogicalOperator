@@ -1,0 +1,55 @@
+package a_variable;
+
+public class LogicalOperator {
+
+	public static void main(String[] args) {
+
+		/*
+		 * 
+		 * 논리연산자 &&(AND), ||(OR), !(NOT) 피연산자로 boolean만 허용한다. -> 주로 비교연산을 연결해주는
+		 * 역할로 사용을 한다 OR보다 AND의 우선순위가 높아서 먼저 실행된다.
+		 */
+
+		int x = 10;
+		int y = 20;
+		boolean b = 0 < x && x < 10 || x < y;
+
+		b = !(x < y); // x<y의 결과값은 true인데 '!' 때문에 최종 결과는 false 출력!
+						// 비교연산을 하는 행위 자체가 boolean 타입이기 때문에
+						// b= !x < y; 로는 쓸 수가 없고 오류가 발생한다.
+		System.out.println(b);
+
+		// 효율적 연산
+		b = true && true; // true -> 왼쪽에 true나오면 뒤에 뭐가나오나 확인해야 함.
+		b = true && false; // false
+		b = false && true; // false -> 처음부터 false가 나왔기에 뭐가 나오든 답은 false,
+							// 따라서 오른쪽은 확인 안하고 false.
+		b = false && false; // false
+
+		// OR은 둘 중 하나가 false면 무조건 false
+		b = true || true; // true
+		b = true || false; // true
+		b = false || true; // true
+		b = false || false; // false
+		// 왼쪽의 피연산자에서 결과가 정해지면 오른쪽은 수행하지 않는다.
+
+		int a = 10;
+		b = a < 5 && 0 < a++; // a < 5가 이미 false라서 뒷 부분은 실행되지 않음.
+								// 때문에 원래 의도대로라면 a++을 실행했겠지만
+								// 오른쪽 실행하지 않기 때문에 a값 그대로 10이다.
+		System.out.println(a);
+
+		// 다음이 문장들을 코드로 작성해주세요.
+
+		// 1. x가 y보다 크고, x가 10보다 작다.
+		b = x > y && x < 10;
+
+		// 2. x가 짝수이고, x가 y의 배수이다.
+		b = x % 2 == 0 && x % y == 0; // 배수는 나누기한 나머지가 0임.
+
+		// 3. x가 3의 배수이거나 x가 5의 배수이다.
+		b = x % 3 == 0 || x % 5 == 0;
+
+	}
+
+}
