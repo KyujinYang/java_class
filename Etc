@@ -1,0 +1,80 @@
+package a_variable;
+
+import java.util.Scanner;
+
+public class Etc {
+
+	public static void main(String[] args) {
+
+		/*
+		 * 비트연산자 |, &, ^, ~, <<, >> 비트단위로 연산한다. -> 자주 사용되는 것은 아니다. bit => 컴퓨터가
+		 * 사용하는 가장 작은 범위의 용량 (byte보다도 작다) 1 byte = 01010101 >> 이 0, 1 하나 하나를
+		 * 비트라고 함. 이 비트단위로 연산하는 것을 '비트연산자'라고 한다. 기타연산자 .(참조연산자) : 특정범위내에 속해 있는
+		 * 멤버를 지칭할 때 사용한다. (type) : 형변환 ?(삼항연산자) : 조건식 ? 조건식이 참일 경우 수행할 문장 :
+		 * 조건식이 거짓일 경우 수행할 문장
+		 */
+
+		System.out.println(10 | 15); // | : 비트가 둘다 0인 경우에는 0, 그 외에는 1이 나오는 연산
+		// 10 : 이진수로 표현하면 00001010
+		// 15 : 이진수로 표현하면 00001111
+		// 결과 : 00001111 -> 따라서 최종 결과는 15가 나온다.
+		// 특수한 경우에만 사용되기 때문에 이런게 있다 정도만 알기
+
+		int x = 10;
+		int y = 20;
+		int result = x < y ? x : y;
+		// x < y 가 true 이면 x가 실행되어 result = x가 되고
+		// false 이면 y가 실행되어 result = y가 된다.
+		System.out.println(result);
+
+		// 주민등록번호 뒷자리의 첫번째 숫자가 1이면 남자 2면 여자
+		int regNo = 5;
+		String gender = regNo == 1 ? "남자" : "여자";
+		System.out.println("당신의 성별은 " + gender + " 입니다.");
+		// 잘 작동되지만 문제가 있음 -> 1, 2 제외한 다른 값을 적어도 여자입니다 가 출력된다.
+		// 이를 해결하기 위해 삼항연산자 하나를 더 사용해야 함.
+
+		gender = regNo == 1 ? "남자" : (regNo == 2 ? "여자" : "확인불가");
+		System.out.println("당신의 성별은 " + gender + " 입니다.");
+
+		// 2개의 숫자를 입력받고, 둘 중 더 큰 숫자를 출력해주세요.
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("숫자를 입력해 주세요.");
+		int num1 = Integer.parseInt(sc.nextLine());
+
+		System.out.print("숫자를 입력해 주세요.");
+		int num2 = Integer.parseInt(sc.nextLine());
+
+		int number = num1 > num2 ? num1 : num2;
+		System.out.println(number);
+
+		// 선생님의 답
+		System.out.print("첫번째 숫자> ");
+		num1 = Integer.parseInt(sc.nextLine());
+		System.out.print("두번째 숫자> ");
+		num2 = Integer.parseInt(sc.nextLine());
+
+		int bigger = num1 > num2 ? num1 : num2;
+		System.out.println(bigger);
+
+		// 숫자를 입력받고 그 숫자가 1이나 3이면 남자를 2나 4면 여자를 출력해주세요.
+		// 그외의 숫자를 입력하면 확인불가를 출력해주세요.
+
+		System.out.print("숫자를 입력해주세요> ");
+		int number2 = Integer.parseInt(sc.nextLine());
+		String gender2 = number2 == 1 || number2 == 3 ? "남자" : (number2 == 2
+				|| number2 == 4 ? "여자" : "확인불가");
+		System.out.println(gender2 + "입니다.");
+
+		// 선생님의 답
+		System.out.print("숫자 입력> ");
+		int num = Integer.parseInt(sc.nextLine());
+		gender = num == 1 || num == 3 ? "남자" : (num == 2 || num == 4 ? "여자"
+				: "확인불가");
+		System.out.println(gender);
+		sc.close();
+	}
+
+}
