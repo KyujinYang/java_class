@@ -1,0 +1,95 @@
+package e_oop;
+
+import java.util.Scanner;
+
+public class Telephone {
+	
+	private Scanner scan;
+	private boolean power;
+	private String number;
+
+	
+	public Telephone() {
+		scan = new Scanner(System.in);
+		power = false;
+		number = null;
+	}
+
+	int inputMenu() {
+		System.out.println("-------------------------------");
+		System.out.println("1.전원  2.전화하기 3.문자하기");
+		System.out.println("0.종료");
+		System.out.println("-------------------------------");
+		System.out.print("메뉴 입력>");
+		return scan.nextInt();
+	}
+	
+	String inputNumber() {
+		if(power) {
+			System.out.print("번호 입력>");
+			this.number = scan.next();
+		}
+		return this.number;
+	}
+	
+	void onPower() {
+		power = !power;
+		System.out.println(power ? "전화기 켜짐" : "전화기 꺼짐");
+	}
+	
+	void offPower() {
+		power = false;
+		System.out.println("종료되었습니다.");
+		System.exit(1);
+	}
+	
+	boolean validNumber() {
+		boolean res = true;
+		for (int i = 0; i < number.length(); i++) {
+			char c = number.charAt(i);
+			if (c < 48 || c > 57) { // 숫자가 아닌 경우
+				res = false;
+				break;
+			}
+		}
+		// 7자리, 11자리만 입력
+		if(!(number.length() == 7) && !(number.length() == 11)) {
+			res = false;
+		}
+		return res;
+	}
+
+	public static void main(String[] args) {
+		Telephone tel = new Telephone();
+
+		while (true) {
+			int menu = tel.inputMenu();
+
+			switch (menu) {
+				case 0:
+					tel.offPower();
+					break;
+				case 1:
+					tel.onPower();
+					break;
+				case 2:
+					String number = tel.inputNumber();
+					if(number != null) {
+						boolean res = tel.validNumber();
+						if(res) {
+							System.out.println(number + "번호로 전화합니다.");
+						} else {
+							System.out.println("올바른 전화번호를 입력해 주세요.");
+						}
+					} else {
+						System.out.println("전화기가 꺼진상태 입니다.");
+					}
+					break;
+	
+				default:
+					System.out.println("올바른 메뉴번호를 입력해 주세요.");
+					break;
+			}
+		}
+	}
+}
