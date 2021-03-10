@@ -1,0 +1,220 @@
+package a_variable; //package = 클래스를 저장하는 폴더 이며 이 클래스가 어떤 패키지에 속해있는지 알려줌
+// 패키지 선언
+// a_variable에 클래스가 위치해 있다.(클래스 위치)
+
+import java.util.Scanner; //다른 패키지에 있는 클래스의 위치를 알려주는 것
+// Ctrl + Shift + o (단축키 누르면 자동으로 임포트를 해준다.)
+
+// Variable 클래스를 만들겠다.
+public class Variable { // 클래스 : 클래스는 변수와 매서드 2가지로 구성이 가능하다.
+						// 이름(ex. main) 뒤에 () : 소괄호 가 있으면 무조건 매서드이다!
+	public static void main(String[] args) { // 매서드의 내용이 들어간다
+		// main 매서드는 프로그램의 시작과 끝이다.
+		// -> 한줄 주석(Ctrl + Shift + C) : 프로그램 코드로 인식되지 않는 문장(주로 코드를 설명하는데 사용한다.)
+		/* 범위주석(Crtl + Shift + /) (해제:\) -> 범위 먼저 지정해주고 키보드 키 눌러야 함 */
+
+		/*
+		 * 데이터 -기본형 -배열 -클래스
+		 * 
+		 * 조작 -산술연산 -비교연산 -논리연산 -조건문 -반복문
+		 */
+
+		/*
+		 * 기본형 타입 -정수 : byte(1), short(2), *int(4), long(8) -실수 : float(4),
+		 * *double(8) -숫자는 상황에 맞게 알맞은 것을 사용하기 -이 중에 int, double 가장 많이 사용한다.
+		 * -float 7자리까지 정확하게 표현하고 그 이후로는 정확하지 않음 double 15자리까지 정확하게 표현하고 그 이후로는
+		 * 정확하지 않음
+		 * 
+		 * -문자 : char(2) -한 개의 문자를 표현할 수 있다. -논리 : boolean(1) -두가지 데이터만 표현할 수
+		 * 있음(true/false)
+		 * 
+		 * *()는 바이트 크기
+		 */
+
+		int x; // 변수 x 생성(선언)
+		// -> 정수를 저장할 수 있는 x라는 이름을 가진 그릇을 만들어라.(변수는 그저 그릇일 뿐 데이터는 아니다)
+		// 변수를 만드는 것을 변수 선언이라고 표현한다.
+		// 문장이 끝났을 때는 항상 ;(세미클론)을 찍어야 한다.
+		// 컴파일은 컴퓨터가 알아들을 수 있게 코드를 번역하는 것
+		// double x; -블럭{}안에서 이름이 중복될 수 없다.
+		double y;
+
+		// =(대입연산자) : 오른쪽의 값을 왼쪽의 변수에 저장
+		x = 10; // 초기화 : 변수에 처음으로 값을 저장하는 것
+		y = 3.14; // 변수의 타입에 맞는 값을 저장해야 한다.
+
+		int abc = 30; // 일반적으로 선언과 초기화를 한번에 한다.
+		long l = 40L; // 정수는 접미사L을 붙여야 long타입이 된다. (l은 1과 비슷하기 때문에 주로 대문자 L를
+						// 사용한다)
+		float f = 5.5f; // 실수는 접미사f를 붙여야 float타입이 된다. (대소문자 가리지 않는다)
+		char c = '한'; // 따옴표안에 반드시 한글자를 넣어야 한다. -> ' ' / '12' (X)
+		boolean b = true; // true, false
+
+		// 8가지 기본형 타입을 사용해서 8개의 변수를 선언 및 초기화 해주세요.
+
+		int num1 = 10;
+		float num2 = 2.5f;
+		long num3 = 50L;
+		char name = '김';
+		boolean num4 = false;
+		byte num5 = 1;
+		double num6 = 30;
+		short num7 = 50;
+
+		x = 20; // 변수를 다른 수로 바꾸기 : 기존에 저장되어 있는 10이라는 값은 사라지고 20이라는 값이 저장된다.
+				// 변수에는 하나의 값만 저장할 수 있다.
+				// 이때 int 안붙여도 된다 -> 변수를 만들때만 타입을 붙이고 변수를 사용하기 위해서는 이름만 있으면 된다.
+
+		y = 5.5;
+
+		// 위에서 만든 8개의 변수에 새로운 값을 저장해주세요.
+
+		num1 = 20;
+		num2 = 3.5f;
+		num3 = 60L;
+		name = '여';
+		num4 = true;
+		num5 = 10;
+		num6 = 50;
+		num7 = 100;
+
+		// 콘솔창에 출력
+		System.out.println(100);
+		System.out.println(num1);
+		// 실행 단축키: ctrl + F11
+
+		// 위에서 만든 8개의 변수 값을 출력해주세요.
+
+		System.out.println(num1);
+		System.out.println(num2);
+		System.out.println(num3);
+		System.out.println(name);
+		System.out.println(num4);
+		System.out.println(num5);
+		System.out.println(num6);
+		System.out.println(num7);
+
+		// 참조형 데이터 타입 (기본형 외의 타입)
+		// String : 문자열을 표현하기 위한 참조형 데이터 타입
+
+		String str = "문자 여러개.."; // 클래스는 참조형타입 데이터이다.
+									// 앞글자가 대문자라는 것은 클래스라는 뜻임
+									// 클래스 이름은 무조건 앞글자에 대문자를 써야한다.
+		// 참조형 데이터에는 실제로 저장하는 값이 변수에 직접 저장되지 않고 변수 밖에 저장을 함.
+		// 변수에는 그 데이터들의 주소를 저장함. 때문에 주소를 참조하는 참조형 타입임.
+		System.out.println(str);
+
+		// 문자열과 다른 타입의 데이터가 결합되면 문자열의 결과를 얻는다.
+		// ==> String은 다른 타입의 데이터를 String으로 바꾼다.
+		System.out.println(str + 50);
+		// 연산을 하려면 연산하는 변수, 숫자끼리 같은 타입이어야 함. 이때 string은 50이라는 숫자를 문자열로 바꾼다.
+
+		System.out.println(10 + 20 + str);
+		System.out.println(str + 10 + 20);
+		// 위, 아래 결과값이 다르다 -> 밑에는 str을 문자열로 바꾸면서 뒤에 숫자까지 문자로 바뀌었기 때문에 연산이 안 먹힘.
+
+		// 형변환
+		// 다른 타입의 값을 저장하기 위해서는 값의 타입을 변경해 주어야 하는데 이를 형변환(type casting)이라 한다.
+		int small = 10;
+		long big = 10L;
+
+		small = (int) big; // long의 값을 int타입에 저장하려하고 있음. 때문에 반드시 형변환 해주어야 함.
+		big = small; // 표현범위가 작은쪽에서 큰쪽으로의 형변환은 생략이 가능하다.
+						// 형변환 - 타입이 서로 다를 때 연산을 하고 싶을 때 등의 상황에 사용.
+
+		x = 10;
+		y = 3.14;
+
+		int z = x + (int) y;
+
+		/*
+		 * 명명규칙 -영문자 대소문자, 한글, 숫자, 특수문자('_', '$'만 사용 가능)를 사용할 수 있다. (단, 인코딩 시에
+		 * 문제가 될 수 있으니 한글은 되도록이면 사용하지 않는다.) -숫자로 시작할 수 없다. -예약어는 사용할 수 없다.
+		 * //이클립스에서 보라색 굵은 글씨로 표시되는 것들이 예약어이다. -[낙타식 표기법을
+		 * 사용한다.(mySampleVariable)] -[클래스명의 첫글자는 대문자로 한다.(MysampleClass)] [] -
+		 * 개발자들 간의 약속(예의임)
+		 */
+
+		/*
+		 * 상수 -값을 변경 할 수 없는 그릇 -상수를 사용하는 이유: 리터럴에 의미를 부여하기 위해 사용한다. (변경되지 않는 값 =
+		 * 리터럴) -상수는 이름을 지을 때 대문자만 사용한다.
+		 */
+
+		final int MAX_NUMBER = 10;
+		// MAX_NUMBER = 20; //컴파일 에러 발생
+		// 상수는 값 한번 저장하면 변경이 불가능 하다 -> 변경하려 하면 컴파일 에러 발생한다
+		System.out.println("줄바꿈을 하지 않는다");
+		System.out.print("줄바꿈을 하지 않는다");
+		System.out.print("줄바꿈을 하지 않는다\n");
+		System.out.print("줄바꿈을 \t하지 않는다");
+		// System.out.pirnt과 System.out.pirntln 과의 차이는 줄바꿈을 하지 않는다는 것.
+		// \ - 탈출(escape 문자) - 새로운 기능을 생기게 해준다. ex. \n(줄바꿈), \t(탭)
+
+		System.out.printf("문자열: %s,  숫자: %d\n", str, x); // printf는 출력 포멧을 지정한다.
+															// %s는 문자열, %d는 숫자를
+															// 나타낸다.
+															// 줄바꿈을 하지 않기 때문에
+															// \n을 넣어줘야 한다.
+
+		// 콘솔창에서 입력하는 방법
+
+		Scanner sc = new Scanner(System.in); // 사용자에게 문자열을 입력받기 위한 클래스 사용
+												// (다른 패키지에 있는 클래스를 쓰려면 꼭
+												// import를 해주어야 한다.)
+		/*
+		 * System.out.print("아무거나 입력해주세요>"); String str2 = sc.nextLine();
+		 * //nextLine 매서드 호출 -> 프로그램이 여기서 멈추고 사용자가 입력할 때까지 기다린다.
+		 * System.out.println(str2);
+		 * 
+		 * sc.nextInt();//사용자에게 숫자를 입력받기 위한 클래스 사용 double nextDouble =
+		 * sc.nextDouble(); //더블 타입의 숫자를 입력받을 때 사용 //Scanner 이외에 이러한 것들이 있지만 버그로
+		 * 인해 사용하지 않는 것이 좋음! ***
+		 */
+
+		/*
+		 * System.out.println("int 입력>"); int nextInt = sc.nextInt(); 스캐너에서 인트를
+		 * 입력받는 매서드를 불러서 System.out.println(nextInt);
+		 * System.out.println("문자열 입력>"); String nextLine = sc.nextLine();
+		 * System.out.println(nextLine); System.out.println("입력끝!"); -> 이 경우에
+		 * 버그가 생긴다. 그래서 sc.nextInt()는 사용하지 않는 것이 좋다. ***
+		 */
+
+		/*
+		 * System.out.print("int 입력>"); //문자열 입력받고 int number =
+		 * Integer.parseInt(sc.nextLine()); //Integer.parseInt = String타입을 int로
+		 * 바꾸는 매서드 // double number = Double.parseDouble(sc.nextLine());
+		 * System.out.println(number);
+		 */
+
+		// 자신의 이름을 저장할 변수를 선언해주세요.
+		String myName;
+
+		// 변수 생성할 때 앞글자가 소문자여야 하고 두글자 이상이면 대문자 써도 됨.
+
+		// 위에서 선언한 변수를 초기화 하기 위해 이름을 입력받아주세요.
+		System.out.println("이름을입력해 주세요>");
+		myName = sc.nextLine();
+		System.out.println(myName);
+
+		// 자신의 나이를 저장할 변수를 선언해주세요.
+
+		int myAge;
+
+		// 위에서 선언한 변수를 초기화 하기 위해 나이를 입력받아주세요.
+		System.out.println("나이를 입력해 주세요>");
+		myAge = Integer.parseInt(sc.nextLine());
+		System.out.println("이름: " + myName + "/ 나이: " + myAge);
+
+		// 과제 : 다음과 같은 프로그램을 작성해주세요.
+		/*
+		 * =================회원가입================== 아이디>admin 비밀번호(4자리숫자)>1234
+		 * 이름> 홍길동 나이> 30 키>185.5 회원가입 완료!! =================내 정보
+		 * =================== 아이디: admin 비밀번호:1234 이름: 홍길동 나이: 30세 키 : 185.5cm
+		 * ==========================================
+		 */
+
+		// 입력을 먼저 받고, 마지막에 입력받았던 정보 출력되도록 만들기
+		sc.close();
+	}
+
+}
