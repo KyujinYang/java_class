@@ -1,0 +1,286 @@
+package c_statement;
+
+import java.util.Scanner;
+
+public class ConditionaslStatemnet {
+
+	public static void main(String[] args) {
+
+		/*
+		 * * 조건문 -if문 switch문
+		 * 
+		 * if문 -if(조건식){} : 조건식의 결과가 true이면 블럭안의 문장을 수행한다. //조건식이 boolean
+		 * 타입이다.(결과가 true/ false로 나올 수 있다.) -else if(조건식){} : 다수의 조건이 필요할 때 if뒤에
+		 * 추가한다. -else{} : 결과가 true인 조건식이 하나도 없는 경우를 위해 추가한다. //조건식은 비교연산!
+		 * 
+		 * 
+		 * int a = 1;
+		 * 
+		 * if(a == 1){ System.out.println("조건식의 연산결과가 true이면 수행된다."); }
+		 * 
+		 * if(a == 0){ System.out.println("조건식의 연산결과가 false이면 수행되지 않는다."); }
+		 * 
+		 * if(a == 1){ System.out.println("a가 1인 경우에 하고싶은 것"); }else if(a == 2){
+		 * System.out.println("a가 2인 경우에 하고싶은 것"); }else if(a == 3){
+		 * System.out.println("a가 3인 경우에 하고싶은 것"); } else{
+		 * System.out.println("이외의 경우에 하고싶은 것"); } //if문은 조건식이 맞아서 명령문 실행을 한 번
+		 * 하면 바로 if문을 빠져나온다.
+		 * 
+		 * 
+		 * //조건을 한묶음으로 사용하기 위해서는 반드시 else if를 사용해야 한다. if(a < 10){
+		 * System.out.println("a가 10보다 작다."); } if(a < 20){
+		 * System.out.println("a가 20보다 작다."); }
+		 * 
+		 * //<=> 위 아래 코드, 결과 비교
+		 * 
+		 * if(a < 10){ System.out.println("a가 10보다 작다."); } else if(a < 20){
+		 * System.out.println("a가 20보다 작다."); }
+		 * 
+		 * //시험점수가 60점 이상이면 합격 그렇지 않으면 불합격 int score = 60; if(60 <= score){
+		 * System.out.println("합격"); }else{ System.out.println("불합격"); }
+		 * 
+		 * //성적에 등급을 부여하는 프로그램 score = 40; String grade = null;
+		 * 
+		 * if(90 <= score){ grade = "A"; //80에서 90사이 등 이런 표현을 쓸 때 꼭 &&로 이어주어야 하고
+		 * 변수 2번 써야 함. //다만 여기서 뒷부분에 적힌 score < 90은 의미가 없는 수준임. //이미 80점 이상인 점수가
+		 * 아니면 다음 문장으로 넘어가기 때문에 별 의미가 없고 안써도 무방함. }else if(80 <= score && score
+		 * < 90){ grade = "B"; }else if(70 <= score && score < 80){ grade = "C";
+		 * }else if(60 <= score && score < 70){ grade = "D"; }else { grade =
+		 * "F"; }
+		 * 
+		 * System.out.println(score + "점에 해당하는 등급은" + grade + " 입니다.");
+		 * 
+		 * 
+		 * score = 80; grade = null;
+		 * 
+		 * if(90 <= score){ grade = "A"; if(97 <= score){ grade += "+"; }else
+		 * if(score < 93){ grade += "-"; } }else if(80 < score){ grade = "B";
+		 * if(87 <= score){ grade += "+"; }else if(score < 83){ grade += "-"; }
+		 * }else if(70 < score){ grade = "C"; if(77 <= score){ grade += "+";
+		 * }else if(score < 73){ grade += "-"; } }else if(60 < score){ grade =
+		 * "D"; if(67 <= score){ grade += "+"; }else if(score < 63){ grade +=
+		 * "-"; } }else { grade = "F"; }
+		 * 
+		 * System.out.println("당신의 점수는 " + score + "점이며 등급은" + grade + "입니다." );
+		 * 
+		 * 
+		 * switch문 -switch(int/String){ case1: break; } //조건식이 if문처럼 boolean타입이
+		 * 오지 않고 int 또는 String 타입이 위치하게 된다. -조건식의 결과는 정수와 문자열만(JDK1.7부터 문자열 허용)
+		 * 허용한다. -조건식과 일치하는 case문 이후의 문장을 수행한다.
+		 * 
+		 * 
+		 * a = 1; switch(a){ case 1: System.out.println("a가 1인 경우에 하고싶은 것");
+		 * break; //브레이크를 만나고 switch문을 빠져나온다. case 2:
+		 * System.out.println("a가 2인 경우에 하고싶은 것"); break; default: //if문에서의
+		 * else와 똑같은 용도로 사용 System.out.println("이외의 경우에 하고싶은 것"); }
+		 * 
+		 * //case문이 일치하는 것을 찾아서 break를 만날 때까지 그 이후 문장을 수행한다. // == break문이 없으면
+		 * 끝까지 다 실행을 한다는 뜻
+		 * 
+		 * String b = "a"; switch(b){ case "a":
+		 * System.out.println("b가 \"a\"인 경우에 하고싶은 것"); break; // 역슬래쉬(\)는
+		 * 탈출(escape)문자 //문자열 쌍따옴표로 표현하는데 문자열 안에 쌍따옴표를 넣고 싶어서 역슬래쉬를 넣어준 것임.
+		 * //\"a\"에서 역슬래쉬는 문장을 끝내는데 쓰인게 아니라 쌍따옴표를 표현하는데 사용됨. case "b":
+		 * System.out.println("b가 \"b\"인 경우에 하고싶은 것"); break; default:
+		 * System.out.println("이외의 경우에 하고싶은 것"); }
+		 * 
+		 * //case문은 if처럼 범위가 아닌 특정 숫자, 문자일 때만 실행되기 때문에 //같은 표현일 경우에 if문보다
+		 * switch문이 더 빠르다 //그래서 평소에 잘 사용하지 않지만 이런 경우에 switch문을 사용한다.
+		 * 
+		 * //주어진 월에 해당하는 계절을 출력해봅시다. int month = 1; String season = null;
+		 * 
+		 * switch(month){ case 3: case 4: case 5: season = "봄"; break; case 6:
+		 * case 7: case 8: season ="여름"; break; case 9: case 10: case 11: season
+		 * ="가을"; break; case 12: case 1: case 2: season ="겨울"; break; }
+		 * System.out.println(month + "월은" + season + "입니다.");
+		 * 
+		 * 
+		 * //점수에 따른 등급을 출력하는 프로그램을 switch문으로 작성 //switch문은 if문과 다르게 범위 지정을 못해서
+		 * 모든 점수를 case로 만들어야 하는데 //이 경우 case문이 너무 많이 필요하기 때문에 줄이기 위해 score를 10으로
+		 * 나누는 방법을 사용함.
+		 * 
+		 * score = 86; grade = null; //String값 초기화 해주어야 한다.
+		 * 
+		 * switch(score / 10){
+		 * 
+		 * case 10: case 9: grade = "A"; break; case 8: grade = "B"; break; case
+		 * 7: grade = "C"; break; case 6: grade = "D"; break; default: grade =
+		 * "F"; }
+		 * 
+		 * System.out.println("점수 " + score + "에 해당되는 등급은" + grade + "입니다." );
+		 * 
+		 * 
+		 * //숫자를 입력받아 그 숫자가 0인지 0이 아닌지 출력해주세요.
+		 * 
+		 * Scanner sc = new Scanner(System.in);
+		 * System.out.print("숫자를 입력해주세요> "); int num =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * if(num == 0) { System.out.println("입력한 숫자는 " + num + "입니다."); }else {
+		 * System.out.println("입력한 숫자는 0이 아닌" + num + "입니다."); }
+		 * 
+		 * // ---------------------------------------------------------------
+		 * 
+		 * System.out.print("숫자를 입력해주세요> "); int num2 =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * switch(num2){ case 0: System.out.println("입력한 숫자는 " + num2 + "입니다.");
+		 * break; default: System.out.println("입력한 숫자는 0이 아닌" + num2 + "입니다.");
+		 * break; }
+		 * 
+		 * 
+		 * //숫자를 입력받아 그 숫자가 홀수인지 짝수인지 출력해주세요.
+		 * 
+		 * System.out.print("숫자를 입력해주세요> "); int num3 =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * if(num3 % 2 == 0) { System.out.println("입력한 숫자는 짝수입니다."); }
+		 * 
+		 * else { System.out.println("입력한 숫자는 홀수입니다."); }
+		 * 
+		 * 
+		 * //--------------------------------------------------------------------
+		 * ------------------------
+		 * 
+		 * 
+		 * System.out.print("숫자를 입력해주세요> "); int num4 =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * switch(num4 % 2){ case 0: System.out.println("입력한 숫자는 짝수입니다.");
+		 * break;
+		 * 
+		 * default: System.out.println("입력한 숫자는 홀수입니다."); break;
+		 * 
+		 * }
+		 * 
+		 * //--------------------------------------------------------------------
+		 * -----------------------
+		 * 
+		 * //점수 3개를 입력받아 총점, 평균, 등급을 출력해주세요.
+		 * 
+		 * System.out.println("점수1을 입력해주세요> "); int grade1 =
+		 * Integer.parseInt(sc.nextLine()); System.out.println("점수2을 입력해주세요> ");
+		 * int grade2 = Integer.parseInt(sc.nextLine());
+		 * System.out.println("점수3을 입력해주세요> "); int grade3 =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * int sum, avg; String finalGrade;
+		 * 
+		 * sum = grade1 + grade2 + grade3; avg = sum / 3; // 소수점 구하고 싶으면 double
+		 * avg = sum / 3.0으로 설정
+		 * 
+		 * if(90 <= avg){ finalGrade = "A"; if(97 <= avg){ finalGrade += "+";
+		 * }else if(avg < 93){ finalGrade += "-"; } }else if(80 < avg){
+		 * finalGrade = "B"; if(87 <= avg){ finalGrade += "+"; }else if(avg <
+		 * 83){ finalGrade += "-"; } }else if(70 < avg){ finalGrade = "C"; if(77
+		 * <= avg){ finalGrade += "+"; }else if(avg < 73){ finalGrade += "-"; }
+		 * }else if(60 < avg){ finalGrade = "D"; if(67 <= avg){ finalGrade +=
+		 * "+"; }else if(avg < 63){ finalGrade += "-"; } }else { finalGrade =
+		 * "F"; }
+		 * 
+		 * 
+		 * System.out.println("세 점수의 총합은 " + sum + "이며 평균은 " + avg + ", 최종 등급은 "
+		 * + finalGrade + "입니다." );
+		 * 
+		 * 
+		 * 
+		 * //--------------------------------------------------------------------
+		 * --------------- System.out.println("점수1을 입력해주세요> "); int grade1_ =
+		 * Integer.parseInt(sc.nextLine()); System.out.println("점수2을 입력해주세요> ");
+		 * int grade2_ = Integer.parseInt(sc.nextLine());
+		 * System.out.println("점수3을 입력해주세요> "); int grade3_ =
+		 * Integer.parseInt(sc.nextLine());
+		 * 
+		 * int sum_, avg_; String finalGrade_;
+		 * 
+		 * sum_ = grade1_ + grade2_ + grade3_; avg_ = sum_ / 3;
+		 * 
+		 * 
+		 * switch(avg_ % 10){ case 10: case 9: finalGrade_ = "A"; break;
+		 * 
+		 * case 8: finalGrade_ = "B"; break;
+		 * 
+		 * case 7: finalGrade_ = "C"; break; case 6: finalGrade_ = "D"; break;
+		 * 
+		 * default: finalGrade_ = "F"; break; }
+		 * 
+		 * System.out.println("세 점수의 총합은 " + sum_ + "이며 , 평균은 " + avg_ + "등급은 "
+		 * + finalGrade_ + "입니다.");
+		 */
+		// ------------------------------------------------------------------------------------------------
+
+		// 1 ~ 100 랜덤한 수를 3개 발생시키고 오름차순(작은수부터 큰수 순으로)으로 출력해주세요.
+		// 오름차순으로 어떻게 출력을 할 것인가?
+		// 1. 3개 발생시키고 2개 비교하고 가장 작은 값 찾아서 순서대로 출력
+		// 2. 변수 x, y, z 만들고 여기에 랜덤한 값 넣고, x, y, z를 순서대로 출력한다.
+		// 대신 x에 가장 작은값, y에 중간값, z에 가장 큰값이 들어가도록 설정해서 출력
+
+		/*
+		 * int random1 = (int)(Math.random() * 100) + 1; int random2 =
+		 * (int)(Math.random() * 100) + 1; int random3 = (int)(Math.random() *
+		 * 100) + 1;
+		 * 
+		 * if(random1 > random2) { if(random1 > random3) { if(random2 > random3)
+		 * { System.out.println(random3 + ", " + random2 + ", " + random1); }
+		 * else { System.out.println(random2 + ", " + random3 + ", " + random1);
+		 * } } else{ if(random1 > random2){ System.out.println(random2 + ", " +
+		 * random1 + ", " + random3); } else{ System.out.println(random1 + ", "
+		 * + random2 + ", " + random3); } } }
+		 * 
+		 * 
+		 * else { if(random2 > random3) { if(random1 < random3 ) {
+		 * System.out.println(random3 + ", " + random1 + ", " + random2); } else
+		 * { System.out.println(random1 + ", " + random3 + ", " + random2); } }
+		 * 
+		 * else { if(random1 > random2) { System.out.println(random2 + ", " +
+		 * random1 + ", " + random3); } else{ System.out.println(random1 + ", "
+		 * + random2 + ", " + random3); } }
+		 * 
+		 * } //이거 뭔가를 잘못설정한 것 같음 제일 작은 수가 2번째에 나옴.
+		 * 
+		 * 
+		 * 
+		 * 
+		 * /* a, b, c a > b 1. a > c - a가 대빵 / b > c - b가 2빠 (a, b, c) - 반대 b <
+		 * c - c가 2빠 (a, c, b) 2. a < c - c가 대빵 / a > b - a가 2빠 (c , a, b) - 반대
+		 * a < b - b가 2빠 (c, b, a)
+		 * 
+		 * else 인 경우 - b가 a보다 크다 b > c - b가 대빵 / a > c - a가 2빠 (b, a, c) - 반대 a
+		 * < c - c가 2빠 (b, c, a) b < c - c가 대빵 / a > b - a가 2빠 (c, a, b) - 반대 a
+		 * < b - b가 2빠 (c, b, a)
+		 */
+
+		// 선생님의 답안
+
+		int x = (int) (Math.random() * 100) + 1;
+		int y = (int) (Math.random() * 100) + 1;
+		int z = (int) (Math.random() * 100) + 1;
+
+		if (x > y) {
+			int temp = x;
+			x = y;
+			y = temp;
+
+			// x를 비교해서 x가 더 크면 x와 y의 값을 서로 바꾼다
+			// x가 y보다는 작아졌지만 z와의 관계는 모름
+		}
+		if (x > z) { // x와 z 비교해서 x가 더 큰 경우에 x와 z의 값을 바꾼다
+			int temp = x;
+			x = z;
+			z = temp;
+
+			// 이렇게 되면 x에 가장 작은 값이 들어가게 된다.
+		}
+		if (y > z) { // y가 더 크면 y과 z의 자리를 바꾼다.
+			int temp = y;
+			y = z;
+			z = temp;
+		}
+
+		System.out.println(x + " < " + y + " < " + z);
+
+		// sc.close();
+
+	}
+
+}
