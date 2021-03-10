@@ -1,0 +1,110 @@
+package d_array;
+
+public class Score {
+
+	public static void main(String[] args) {
+		/*
+		 * 우리반 모두의 국어,영어,수학,사회,과학,oracle,Java 점수를 0~100까지 랜덤생성하고, 아래와 같이 출력해라
+		 * 
+		 * 
+		 * 국어 영어 수학 사회 과학 oracle java 합계 평균 석차홍길동 90 90 90 90 90 90 90 630 90 1
+		 * 홍길동 90 90 90 90 90 90 90 630 90 1홍길동 90 90 90 90 90 90 90 630 90 1홍길동
+		 * 90 90 90 90 90 90 90 630 90 1홍길동 90 90 90 90 90 90 90 630 90 1홍길동 90
+		 * 90 90 90 90 90 90 630 90 1과목합계 450 450 450 450 450 450 450 630 90 1
+		 * 과목평균 90.00 90.00 90.00 90.00 90.00 90.00 90.00
+		 */
+		// 1.반사람저장
+		String[] name = { "곽명훈", "김나위", "김범수", "김성현", "김영광", "김정명", "김찬미",
+				"김현민", "김현성", "류창현", "맹세희", "배병주", "설동비", "양규진", "여지연", "오태훈",
+				"이기정", "이상훈", "이재헌", "이치우", "전민주", "조기범", "조영현", "조항민", "최진우" };
+		// 2.과목이름저장
+		String[] subject = { "국어", "영어", "수학", "사회", "과학", "oracle", "java" };
+
+		// 3. 25명 과목 성적(변수) score 선언
+		int[][] scores = new int[name.length][subject.length];
+
+		// 4.score의 각 방에 0~100점사이 랜덤정수저장
+		for (int i = 0; i < scores.length; i++) {
+			for (int j = 0; j < scores[i].length; j++) {
+				scores[i][j] = (int) (Math.random() * 101);
+			}
+		}
+		System.out.println("ㅇㅣㄱㅓㄴㅁㅓㅇㅑ?" + scores[1][1] + "\t" + scores[1][2]
+				+ "\t" + scores[1][3]);
+		System.out.println("ㅇㅣㄱㅓㄴㅁㅓㅇㅑ?" + scores[1][1] + "\t" + scores[2][1]
+				+ "\t" + scores[3][1]);
+		// 5.사람별 과목총점 구하기
+		int[] nameSum = new int[name.length];
+		for (int i = 0; i < scores.length; i++) {
+			for (int j = 0; j < scores[i].length; j++) {
+				nameSum[i] += scores[i][j];
+			}
+		}
+		System.out.println("너는.." + nameSum[3]);
+
+		// 6.사람별 과목평균
+		double[] nameAvg = new double[name.length];
+		for (int i = 0; i < name.length; i++) {
+			nameAvg[i] = nameSum[i] / scores.length;
+		}
+		System.out.println(Math.round((nameAvg[0]) * 100) / 100.0);
+		System.out.println("사람평균" + Math.round(nameAvg[0] * 100) / 100.0);
+
+		// 7.과목당 합계
+		int[] subSum = new int[subject.length];
+		for (int i = 0; i < subject.length; i++) {
+			for (int j = 0; j < name.length; j++) {
+				subSum[i] += scores[j][i];
+			}
+		}
+		// 8.과목당 평균
+		float[] subAvg = new float[subject.length];
+		for (int i = 0; i < subject.length; i++) {
+			subAvg[i] = ((float) subSum[i] / scores.length);
+		}
+		System.out.println("과목별평균" + Math.round(subAvg[0] * 100) / 100.0);
+		System.out.println("넌" + subAvg[0]);
+
+		// 9.석차
+		int[] rank = new int[name.length];
+		for (int i = 0; i < name.length; i++) {
+			rank[i] = 1;
+			for (int j = 0; j < name.length; j++) {
+				if (nameSum[i] < nameSum[j]) {
+					rank[i]++;
+				}
+			}
+		}
+		System.out.println("등수는 " + rank[0]);
+
+		// 1. 헤드 출력
+		for (int i = 0; i < subject.length; i++) {
+			System.out.print("\t" + subject[i]);
+		}
+		System.out.print("\t 합계 \t 평균 \t 석차" + "\n");
+
+		// 2.이름, 랜덤점수 출력
+		for (int i = 0; i < name.length; i++) {
+			System.out.print(name[i] + "\t ");
+			for (int j = 0; j < scores[i].length; j++) {
+				System.out.print(scores[i][j] + "\t ");
+			}
+			// 4. 합계/평균/석차 출력
+			System.out.println(nameSum[i] + "\t "
+					+ Math.round(nameAvg[i] * 100) / 100.0 + "\t " + rank[i]);
+		}
+		// 5. 과목합계출력
+		System.out.print("과목합계\t ");
+		for (int i = 0; i < subSum.length; i++) {
+			System.out.print(subSum[i] + "\t ");
+		}
+		System.out.println();
+		// 6. 과목평균출력
+		System.out.print("과목평균\t ");
+		for (int i = 0; i < subAvg.length; i++) {
+			System.out.print(subAvg[i] + "\t");
+		}
+		System.out.println();
+
+	}
+}
