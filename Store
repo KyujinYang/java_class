@@ -1,0 +1,130 @@
+package g_oop2;
+
+public class Store {
+
+	public static void main(String[] args) {
+		// 마지막 . 물건만들기
+		Desktop d1 = new Desktop("삼성 컴퓨터", 100000);
+		Desktop d2 = new Desktop("LG 컴퓨터", 100000);
+		AirCon ac1 = new AirCon("삼성 에어컨", 200000);
+		AirCon ac2 = new AirCon("LG 에어컨", 200000);
+		TV tv1 = new TV("삼성 TV", 300000);
+		TV tv2 = new TV("LG TV", 300000);
+
+		Customer c = new Customer();
+
+		// 정보확인 후 구매
+		System.out.println(d1.getInfo());
+		System.out.println(d2.getInfo());
+		c.buy(d1);
+		// c.buy((Product)d1); //형변환이 숨어있음
+		System.out.println(ac1.getInfo());
+		System.out.println(ac2.getInfo());
+		c.buy(ac1);
+		System.out.println(tv1.getInfo());
+		System.out.println(tv2.getInfo());
+		c.buy(tv2);
+
+		// 가지고 있는 물건확인
+		c.showItem();
+		//
+
+	}
+
+}
+
+// 1.공통적으로 상속받을 부모클래스 생성
+class Product {
+	String name; // 물건 이름
+	int price; // 가격- 외부에서 정보가 필요(파라미터) 따라서 생성자 만들어줘야해
+
+// 2.생성자
+	Product(String name, int price) {
+		this.name = name;
+		this.price = price;
+	}
+
+// 3.파라미터 메소드 정보
+	String getInfo() {
+		return name + "(" + price + "원)";
+	}
+
+}
+
+class Desktop extends Product {
+// 직접호출
+// 1.생성자
+	Desktop(String name, int price) {
+		super(name, price);
+	}
+
+	void Programming() {
+		System.out.println("프로그램을 만듭니다.");
+	}
+}
+
+class AirCon extends Product {
+// 1.생성자
+	AirCon(String name, int price) {
+		super(name, price);
+	}
+
+// 2.메소드
+	void setTemperature() {
+		System.out.println("온도를 설정합니다.");
+	}
+}
+
+// 1.클래스 tv
+class TV extends Product {
+	TV(String name, int price) {
+		super(name, price);
+	}
+// 2. 메소드
+	void setChannel() {
+		System.out.println("채널을 변경합니다");
+	}
+}
+
+// 물건구매 손님만들기
+// 1.클래스 생성(손님1)
+class Customer {
+	int money = 1000000000;
+// 2.물건들 저장할 변수만들어줘(배열, 모든물건담아야하는 product타입배열)
+	Product[] item = new Product[100];
+
+// 3.구매 메소드만들기
+		// 어떤 물건을 구매할것인가 파라미터필요 - 파라미터타입은 product
+	void buy(Product p) {
+
+// 구매로직만들기
+		if (money < p.price) {
+			System.out.println("잔돈이 부족합니다");
+			return;// 돈이부족하면 돌려보냄.
+		}
+		money -= p.price; // 샀으면 돈빼고 물건돌려줌
+
+		// 물건저장
+		for (int i = 0; i < item.length; i++) {
+			if (item[i] == null) {
+				item[i] = p;
+				break;
+			}
+		}
+		System.out.println(p.getInfo() + "를 구매했다.");
+
+	}
+
+	void showItem() {
+		System.out.println("=========== 장바구니 ===========");
+		for (int i = 0; i < item.length; i++) {
+			if (item[i] == null) {
+				break;
+			} else {
+				System.out.println(item[i].getInfo());
+			}
+		}
+		System.out.println("=============================");
+	}
+
+}
