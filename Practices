@@ -1,0 +1,52 @@
+package d_array;
+
+import java.util.Arrays;
+
+public class Practices {
+
+	public static void main(String[] args) {
+		// 배열 기초 - 배열에 저장된 값들 중 최소값과 최대값을 출력해주세요.
+
+		int[] arr = new int[10];
+
+		for (int i = 0; i < arr.length; i++) {
+
+		}
+
+		for (int i = 1; i < arr.length; i++) {
+			int temp = arr[i];
+			int j = 0;
+			for (j = i - 1; j >= 0; j--) {
+				if (temp < arr[j]) { // temp를 arr[i]라고 했을때 문제점 ▽
+					arr[j + 1] = arr[j]; // 만약 j의 한칸뒤가 i이면 없어지기 때문에 보관할
+											// 변수(temp)를 만들어줘야함
+				} else {
+					break;
+				}
+			}
+			arr[j + 1] = temp;
+		}
+
+		System.out.println(Arrays.toString(arr));
+
+		/*
+		 * 
+		 * int[] arr = new int[10]; for(int i =0; i < arr.length; i++) { arr[i]
+		 * = (int)(Math.random() * 100 ) + 1;
+		 * 
+		 * } System.out.println(Arrays.toString(arr));
+		 * 
+		 * //여기까지 10개의 랜덤한 함수를 발생시킨 것
+		 * 
+		 * 
+		 * for(int i = 0; i < arr.length - 1; i++){ int min = i; for(int j = i +
+		 * 1; j < arr.length; j++) //최솟값을 찾는 것이 아니라 최솟값이 들어있는 위치를 구해야 한다. //비교도
+		 * 최솟값이 들어있는 위치와 해야 한다. { if(arr[j] < arr[min]) { min = j; } } int temp
+		 * = arr[i]; arr[i] = arr[min]; arr[min] = temp; }
+		 * 
+		 * System.out.println(Arrays.toString(arr));
+		 */
+
+	}
+
+}
