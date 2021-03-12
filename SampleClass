@@ -1,0 +1,57 @@
+package e_oop;
+
+public class N3_SampleClass {
+	// 접근제어자public class class예약어 SampleClass클래스이름
+	// package 다른 경우 import (다른패키지에 위치한 메서드?클래스?를 가져와.....?)
+
+	// class는 변수와 메서드로 구성
+	// 메서드 안의 지역변수
+	// 메서드 밖의 전역변수 - 클래스 전체범위내에서 사용할 수 있다. 초기화를 하지 않아도 기본값으로 자동초기화 됨.
+	public static void main(String[] args) {
+		int local = 10; // 지역변수: 메서드 안에서만 사용하는 변수
+
+	}
+	int field; // 전역변수: 클래스 전체 영역에서 사용하는 변수
+
+	// 초기화하지 않아도 기본값으로 초기화된다.
+	// 기본값 int field = 0;
+
+	/*
+	 * 메서드: 변수를 가지고 할 일 선언 방법: 리턴타입 메서드명(파라미터){ } 파라미터(매개변수): 실행에 필요한 정보
+	 * 리턴타입(반환타입): 실행 후 돌려줘야하는 결과물 ex1. 구매메서드가 있다. 메서드안에서 무엇을 구매할지 메서드에게 알려주고 이거
+	 * 구매해주세요.(파라미터) 내가 구매하는 메서드에 콜라 한 병 사주세요. 메서드가 콜라를 삼. 나에게 전달해줌. (리턴타입)
+	 */
+
+	/*
+	 * int를 돌려받고 싶다 int String을 돌려받고 싶다. String
+	 */
+	// String method(//파라미터정보){
+	String method(int parameter) { // 1.리턴타입이 있는데 리턴하지 않았기때문에 컴파일에러가 뜸
+		return parameter + " 를 받아 명령을 수행하고 결과물을 리턴하는 메서드"; // 2. 따라서 메서드 생성
+		// int타입의 값을 받아 실행한 뒤 string타입으로 돌려줌
+		// 리턴타입이 없을경우 적는 방법 void
+	}
+
+	void method2() { // 리턴타입 없는 경우 void, 파라미터()는 없을수도 있다.
+		System.out.println("\n\n" + "파라미터도 리턴타입도 없는 메서드");
+	}
+
+	void flowTest1() {
+		System.out.println("flowTest1 시작 : 1");
+		flowTest3();
+		System.out.println("flowTest1 종료 : 6");
+	}
+
+	void flowTest2() {
+		System.out.println("flowTest2 시작 : 3");
+		System.out.println("flowTest2 종료 : 4");
+	}
+
+	void flowTest3() {
+		System.out.println("flowTest3 시작 : 2");
+		flowTest2();
+		System.out.println("flowTest3 종료 : 5");
+	}
+}
+
+
