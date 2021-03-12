@@ -1,0 +1,70 @@
+package e_oop;
+
+public class N8_JVM {
+
+	public static void main(String[] args) {
+
+		/*
+		 * JVM(Java Virtual Machine) - 자바로 만들어진 프로그램이 실행되는 컴퓨터 안의 가상 컴퓨터 - 운영체제
+		 * ->JVM-자바 프로그램 - 장점: 운영체제에 상관없이 실행할 수 있다. - 단점: 속도가 느리다.
+		 * 
+		 * JVM 메모리 구조★★ - Method Area(메서드 영역): 클래스 멤버가 저장된다. - Call Stack(호출
+		 * 스택): 현재 호출되어 있는 메서드가 저장된다. - Heap: 객체가 저장된다.
+		 * 
+		 * ///이런게 있는데 뭐가 저장되냐 는 알아야한다. - 코드작성 후 어떤식으로 메모리에 올라가는지 알아보자
+		 */
+
+		// 1. 프로그램 실행시 main(),classVar, classMethod()가 MethodArea에 저장됨
+		// 2. main()이 호출되어 CallStack에 저장됨 -프로그램저장되는 곳.
+
+		System.out.println(classVar); // 생성
+		// 3. System클래시의 out이 MethodArea 저장됨
+		// 4. println()이 호출되어 Callstack에 저장됨
+		// 5. println()이 classVar를 출력 후 CallStack에서 삭제됨
+
+		classMethod(); // 이미 메모리에 CallStack에 올라가 있어서 바로사용해 호출
+		// 6. classMethod()가 호출되어 CallStack에 저장됨
+		// 7. clssMethod() 내용을 실행
+		// 8. calssMethod()의 실행이 종료되어 CallStack에서 삭제됨
+
+		N8_JVM jvm = new N8_JVM(); // 객체 생성
+		// 9.JVM객체가 Heap에 저장됨.
+		// 10. 메인메서드 jvm변수가 CallStack에서 생성되고, JVM주소가 저장됨
+
+		System.out.println(jvm.instanceVar);
+		// 11.println()이 호출되어 CallStack에 저장됨
+		// 12.println()이 instanceVar를 출력 후 CallStack에서 삭제됨
+
+		jvm.instanceMethod(); // 인스턴스변수 호출
+		// 13.instanceMethod()가 호출되어 CallStack에 저장됨
+		// 14.insataceMethod()의 내용을 실행
+		// 15.instanceMethod()의 실행이 종료되어 CallStack에서 삭제됨
+
+		jvm = null; // 객체에 null값 저장
+		// 16.jvm변수에 null값 저장
+		// 17어디에서도 주소를 참조하지 않은 JVM객체는 GarbageCollector(메모리검사)에 의해 삭제됨
+
+		// 18. main()의 실행이 종료되어 CallStack에서 삭제됨
+		// 19. 프로그램이 종료되고 MethodArea의 데이터가 삭제됨
+	}
+
+	int instanceVar;
+	static int classVar;
+
+	void instanceMethod() {
+		System.out.println(instanceVar);
+		System.out.println(classVar);
+	}
+
+	static void classMethod() {
+		// System.out.println(instanceVar); 아직 메모리에 올라오지 않은 상태
+		// instanceVar 컴파일에러 발생이유: 메모리에 올라가는 시점을 잘 이해해라. static이 붙지 않은 변수에서는
+		// 인스턴스변수와 클래스변수 둘다 사용 가능
+		// instance변수는 객체생성을 하지 않아 올라와있지 않은 상태다.
+		// 아래 class변수는 static이 붙어 있으니 당연히 메모리에 올라와있기에 객체생성하지 않아도 사용 가능.
+		System.out.println(classVar); // static 붙은 클래스 변수. 이친구는 객체생성을 하지 않아도 사용
+										// 가능.
+
+	}
+
+}
