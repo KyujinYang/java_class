@@ -1,0 +1,34 @@
+package e_oop;
+
+public class N2_OOP {
+
+	public static void main(String[] args) {
+		
+	/*
+	 * 객체지향 프로그램(Object Oriented Programming)
+	 * - 프로그래밍을 단순히 코드의 연속으로 보는것이 아니라 객체간의 상호작용으로 보는것.
+	 * - 코드의 재사용성이 높고 유지보수가 용이하다.(main 메소드에 모든 코드가 저장되어있을경우)
+	 * 
+	 * -학습목표: 메소드를 만드는 방법에 대해 알아보자 
+	 */
+	//메서드 사용하기
+		//(SampleClass 사용)
+		N3_SampleClass sc = new N3_SampleClass();// 이 클래스가 메모리에 올라가고 그 클래스가 저장된 (메모리의)주소를 반환 해줌.
+		//반환한 그 주소는 클래스에 저장할 수 있다.(new SampleClass();)메모리에 저장된 주소를 가르쳐주고 그걸 sc 클래스에 저장. 동일한 타입
+		
+		 System.out.println(sc.field); //기본값 0이 저장되어있음
+		 //메서드 호출하는데 필요 
+		 //파라미터를 넘겨준다 int타입의 변수
+		 
+		 String returnValue =sc.method(5);
+		 System.out.println(returnValue);
+		 //호출 후 돌려주는 건  string타입 그래서 string타입에 저장
+		 
+		 //2번 메서드 호출
+		 sc.method2(); //메서드도 파라미터도없으니 그냥출력
+		 
+		 //flowTest 메서드 호출
+		 sc.flowTest1();
+		 
+	}
+}
