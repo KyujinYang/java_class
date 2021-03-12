@@ -1,0 +1,70 @@
+package c_statement;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Practice {
+
+	public static void main(String[] args) {
+
+		// 1~100까지 10개의 랜덤한 수를 발생시켰다.
+
+		int[] arr = new int[10];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = (int) (Math.random() * 100) + 1;
+		}
+		System.out.println(Arrays.toString(arr));
+
+		// 2. 선택정렬: 가장 작은 숫자를 찾아서 앞으로 보내는 방식
+		// 랜덤한 수 중에 최솟값 찾아서 맨 앞에 있는거랑 바꾸고
+		// 나머지 9개 숫자랑 비교해서 두번째 자리랑 바꾸고 ~~
+
+		int min = arr[0];
+
+		/*
+		 * if(arr[0] > arr[1]) { arr[0] = arr[1]; arr[1] = min; }
+		 * 
+		 * if(arr[0] > arr[2]) { arr[0] = arr[2]; arr[2] = min; }
+		 */
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[i] < arr[j]) {
+					arr[i] = arr[j];
+					arr[j] = min;
+				}
+			}
+		}
+
+		System.out.println(Arrays.toString(arr));
+
+		// 1. 석차 구하기: 점수를 비교해 점수의 등수를 증가시키는 방식
+		// 랜덤한 수가 점수이며 그 점수들의 등수를 출력하기
+
+		/*
+		 * int[] rank = new int[10];
+		 * 
+		 * for(int i = 0; i < arr.length ; i++){
+		 * 
+		 * rank[i] = 1;
+		 * 
+		 * for(int j = 0; j < arr.length; j++){
+		 * 
+		 * if(arr[i] < arr[j]) { rank[i]++; } } }
+		 * 
+		 * System.out.println(Arrays.toString(rank));
+		 */
+
+		// -------------------------------------------------------
+		// 선생님 답
+		/*
+		 * int[] rank = new int[arr.length]; for(int i =0; i < rank.length; i++)
+		 * { rank[i] = 1; }
+		 * 
+		 * for(int i =0 ; i < arr.length; i++){ for(int j =0; j < arr.length;
+		 * j++){ if(arr[i] < arr[j]) { rank[i]++; } }
+		 * 
+		 * } System.out.println(Arrays.toString(rank));
+		 */
+
+	}
+}
