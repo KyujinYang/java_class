@@ -1,0 +1,32 @@
+package d_array;
+
+import java.util.Scanner;
+
+public class RandomStudents {
+
+	public static void main(String[] args) {
+		// 입력한 숫자만큼 학생의 이름을 랜덤으로 출력하는 프로그램을 만들어주세요.
+		// 이 반 학생 25명
+		// 사용자에게 숫자 입력받는다
+		// 5라고 출력하면 25명 중에 랜덤하게 5명의 이름이 출력된다.
+		// 이름이 출력되는 것은 중복되면 안 된다.
+
+		String[] name = { "곽명훈", "김나위", "김범수", "김성현", "김영광", "김정명", "김찬미",
+				"김현민", "김현성", "류창현", "맹세희", "배병주", "설동비", "양규진", "여지연", "오태훈",
+				"이기정", "이상훈", "이재헌", "이치우", "전민주", "조기범", "조영현", "조항민", "최진우" };
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("숫자 입력> ");
+		int number = Integer.parseInt(sc.nextLine());
+
+		// 5를 입력하면 25의 수 안에서 5개의 랜덤 수가 나오도록 설정해야 함(인덱스)
+
+		for (int i = 0; i < number; i++) {
+			int random = (int) (Math.random() * 25) + 1;
+
+			System.out.println(random);
+		}
+		sc.close();
+	}
+
+}
