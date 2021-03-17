@@ -1,74 +1,166 @@
-package i_regex;
+package j_collection;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class RegularExpression {
+public class ArrayListClass {
 
 	public static void main(String[] args) {
-/*
-		 * 정규표현식 : 문자열의 패턴을 검사하는 표현식
+		/*
 		 * 
-		 * ^	뒷 문자로 시작	(^ 캐럿 ^a : a로시작하는 문자)
-		 * $	앞 문자로 종료	(a$ : a로 종료하겠다)
-		 * .	임의의 문자(줄바꿈 제외) (. 한글자 표현)
-		 * *	앞 문자가 0개 이상 (abc *: abc 앞글자 3개)
-		 * +	앞 문자가 1개 이상
-		 * ?	앞 문자가 없거나 1개
-		 * []	문자의 집합이나 범위([a-z]:a부터 z까지, [^a-z]:a부터 z가 아닌것)
-		 * {}	앞 문자의 개수({2}:2개, {2,4}:2개 이상 4개 이하) (중괄호)
-		 * ()	그룹화 (소괄호)
-		 * |	OR연산
-		 * \s	공백, 탭, 줄바꿈
-		 * \S	공백, 탭, 줄바꿈이 아닌 문자
-		 * \w	알파벳이나 숫자
-		 * \W	알파벳이나 숫자가 아닌 문자
-		 * \d	숫자
-		 * \D	숫자가 아닌 문자
-		 * (?i)	뒷 문자의 대소문자 구분 안함
-		 * \	정규표현식에서 사용되는 특수문자 표현
-*/
+		 * Collections Framework: 다수의 데이터를 다루기 위한 표준화 된 방법
+		 *<인터페이스- 부모역할>
+		 * - a.List: index가 저장.(순서가 있다)	1)array list
+		 * - b.Map: index가 아닌 Key와 값을 저장	2)hash
+		 * - c.Set: 값 저장시 index란 개념이 없다. 중복된 값이 저장되지 않는다. 
+		 * 
+		 * 배열단점:  a.길이를 변경할 수 없다.
+		 * 		    b.같은타입의 데이터만 저장할 수 있다.
+		 * 
+		 * boolean add(Object obj): 마지막 위치에 객체를 추가 후 성공여부를 반환한다.
+		 * void add(int index, Object obj): 지정된 위치에 객체를 추가한다
+		 * Object set(int index, Object obj): 지정된 위치에 객체를 저장 후 기존 객체를 반환한다.
+		 * Object get(int index): 지정된 위치의 객체를 반환한다.
+		 * int size(): 저장된 객체의 수를 반환한다.
+		 * boolean remove(int index): 지정된 위치의 객체를 반환한다.
+	   	 *					int index: (현재 ([0,1,2,3,4] 중 [7]은 없으니 안돼.) 저장값 가운데 index에 저장가능)
+	  	 *					Object obj: 수정하는 메서드
+		 */
+		
+		
+		
+		ArrayList sample = new ArrayList();
+		
+		sample.add("abc");
+		sample.add(100);//-> inteager타입의 객체 저장	// 객체만 저장가능. 기본형 타입 저장안된다. 
+		sample.add(new Scanner(System.in));		//꺼낼때는 꺼내려는 메소드의 타입을 잘 모르기에 꺼낼 때 단점.
+		
+		//제네릭- ArrayList의 저장할 타입을 지정. 아래에서는 integer만 지정
+		ArrayList<Integer> list = new ArrayList<>();
+		list.add(10);
+//		list.add("abc");
+		list.add(20);
+		System.out.println(list.add(30));
+		System.out.println(list);
+
+		
+
+		
+		list.add(1,40); //1번 인덱스부터 뒤로 밀고 값을 저장
+		System.out.println(list);
+		
+//		list.add(5,50); //저장되어 있는 인덱스를 
+		Integer before = list.set(2,50);//기존 값을 알고 싶을 때 before after 사용 (수정)
+		System.out.println("before: " + before);
+		System.out.println("after: " + list.get(2));
+		System.out.println(list);
+		
+		//인덱스 위치 가져오기
+		Integer integer = list.get(2);
+		System.out.println(integer);
+		
+		//size 길이 - for문돌릴때 제대로 제거하고 싶으면 반대방향으로 뒤에서 부터제거
+/*		for(int i= 0; i<list.size(); i++){
+			System.out.println(i+" : " + list.get(i));
+
+		list.remove(i);
+		}
+		System.out.println(list);*/
+		
+		
+		
+		for(int i = list.size() - 1; 0 <= i; i--){
+			System.out.println(i + " : " + list.get(i));
+			list.remove(i);
+		}
+		System.out.println(list);
 	
+		//list에 1~ 100사이의 랜덤값을 10개 저장해주세요.
+		for(int i =0; i<10; i++){
+			list.add((int)(Math.random()*100)+1);
+		}
+		System.out.println(list);
+		int sum =0;
+		double avg = 0;
+		for(int i = 0; i< list.size(); i++){
+			sum += list.get(i);
+		}
 		
-//		String str = "abc123";
-//		String regex = "[a-z]{3}[0-9]{1,3}";
-//		String regex = "[a-z0-9]+";
-//		String regex = "\\w*"; //  \ 한개면 탈출, \\면 다시 원상태로
-//		String regex = ".*"; //줄바꿈을 제외한 어떤 문자도 상관없음
-		
-		//최대한 내가 원하는 패턴을 출력하고 싶으면 좁은표현을 쓰자
+		avg = (double)sum / list.size();
+		System.out.println("sum: " + sum + " / avg: " + avg);
 		
 		
-//		Pattern p = Pattern.compile(regex);
-//		Matcher m = p.matcher(str); //str과 matcher 값이 같으면 true
-//		System.out.println(m.matches()); // str과 matcher 같으면 true 대문자 등 다르면 false
 		
-//문1. 아이디, 전화번호, 이메일주소 유효성 검사 정규표현식 만들기
-		String id = "naver_5241";
-		String regex1 = "[[a-z]{1}[0-9][-][_]]{5,20}$";
-		Pattern p = Pattern.compile(regex1);
-		Matcher m = p.matcher(id); //str과 matcher 값이 같으면 true
-		System.out.println(m.matches()); // str과 matcher 같으면 true 대문자 등 다르면 fals
+		/* 기본형 타입을 클래스로 감쌌다.
+		 * byte: Byte
+		 * short: Short
+		 * int: Integer
+		 * long: Long
+		 * float: Float
+		 * double: Double
+		 * char: Character
+		 * boolean: Boolean
+		 */
+		
+		int max = list.get(0);
+		int min = list.get(0);
+		for (int i = 0; i < list.size(); i++){ 
+        	if(max < list.get(i)){ 
+        		max = list.get(i);
+        	} 
+    		if(min > list.get(i)){ 
+    			min = list.get(i);
+    		}
+		}
+    		
+		
+    		System.out.println("최대값: " + max);
+    		System.out.println("최대값: " + min);
+		
+    		//삽입정렬
+    		for(int i = 0; i < list.size() -1 ; i++){ 
+    			min = i; 
+    	    for(int j = i + 1; j < list.size(); j++){ 
+    	    	if(list.get(j) < list.get(min)) { 
+    	    		min = j; } 
+    	    	} 
+    	    int temp =list.get(i); 
+    	    list.set(i, list.get(min)); 
+    	    list.set(min, temp);
+    		}
+    		System.out.println(list);
 
-// 		전화번호
-		String telnumber = "01072724141";
-		String regex2 = "[0-9]{10,11}$";
-		p = Pattern.compile(regex2);
-		m = p.matcher(telnumber); //str과 matcher 값이 같으면 true
-		System.out.println(m.matches());	
-		
-//		이메일주소
-		String email = "a15241@naver.com";
-		String regex3 = "[a-zA-Z]{1}[a-zA-Z0-9_@].*";
-		p = Pattern.compile(regex3);
-		m = p.matcher(email); //str과 matcher 값이 같으면 true
-		System.out.println(m.matches());	
-		
-		//아이디, 전화번호, 이메일주소의 유효성을 검사하는 정규표현식을 만들어주세요.
-		//아이디 : [a-z0-9_-]{5,20}
-		//전화번호 : ^0\\d{1,3}-\\d{3,4}-\\d{4}
-		//이메일주소 : [a-z0-9_-]{5,20}@[a-zA-Z]+\\.(?i)(com|net|org|([a-z]{2}\\.kr))$
-		
+//    		2차원
+    		System.out.println("\n\n\n\n2차원 ArrayList");
+    	
+    		ArrayList<ArrayList<Integer>> list2 = new ArrayList<>();
+    		
+    		list = new ArrayList<>();
+    		list.add(10);
+    		list.add(20);
+    		list.add(30);
+    		
+    		list2.add(list);
+
+    		list = new ArrayList<>();
+    		list2.add(list);
+    		list.add(40);
+    		list.add(50);
+    		
+    		System.out.println(list2);
+    		
+    		
+    		
+    		for(int i =0; i<list2.size();i++){
+    			ArrayList<Integer> li = list2.get(i);
+    			for(int j =0; j < li.size(); j++){
+    				System.out.print(li.get(j)+ "\t");
+    			}
+    			System.out.println();
+    		}
+    		System.out.println("list2.get(a) a번째 인덱스에 있는 get(b)번째 값을 가져온다."
+    				+ "");
+    		Integer integer2 = list2.get(1).get(0);
+    		System.out.println(integer2);
 	}
-
 }
