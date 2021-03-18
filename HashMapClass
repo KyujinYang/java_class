@@ -1,0 +1,130 @@
+package j_collection;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
+
+public class HashMapClass {
+
+	public static void main(String[] args) {
+		/*
+		 * Object put(Object key, Object value): 지정된 키와 값을 저장한다. (인덱스저장이 아닌 키를 사용해 저장
+		 * 										인덱스가 아니기에 순서가 없다.)
+		 * Object remove(Object key, Object value): 지정된 키로 저장된 값을 제거한다.
+		 * Object get(Object key, Object value): 지정된 키와 값(없으면 null)을 반환한다.
+		 * Set keySet(): 지정된 모든 키를 Set의 형태로 반환한다. set은 중복되지 않는 값을 담을 수 있는 배열과 같은 것
+		 */
+		
+		HashMap<String, Object> map = new HashMap<>(); 
+		//HashMap<키(String), 값(저장하고픈 타입 ex)Inteager,String)>
+		//Object넣으면 아무 타입이나 사용 가능
+		
+		
+		//1.put 이용해 값 넣어주기
+		
+		map.put("a", 10); //10이라는 값을 a라는 키로 저장
+		map.put("b", "홍길동"); //홍길동을 b라는 키로 저장
+		map.put("c", new Date()); //util.Date c에 저장
+		
+		System.out.println(map); //출력시 순서섞여 모두 출력
+		
+		map.put("b","이순신"); //같은 키 b에 다른 값 이순신 을 저장 --> 덮어쓰기가 됨(홍길동>>이순신)
+		System.out.println(map);
+		
+		//2.remove 삭제
+		map.remove("a");
+		System.out.println(map);
+		
+		//3.get map에 저장된 값 얻기
+		Object value = map.get("b"); //->map에 저장된 값은 제네릭(object)으로 저장된 값
+		System.out.println("1"+value);
+
+		String value2 = (String)map.get("b");
+		System.out.println("2"+value2); //형변환하여 꺼내기(String에 있는 메서드 사용)
+		
+		//4.key set -->저장된 모든 키 set의 형태로 반환
+		Set<String> keys = map.keySet(); // 변수에 저장
+		//Set은 값을 꺼낼 수 있는 수단이 없다. get이라는 메서드가 존재하지 않음.
+		//향상된 for문사용해서 꺼내기
+		
+		//5. 향상된 for문 -> //콜론(:)기준으로 오른쪽에 배열이나 리스트 등의 데이터를 담고있는 형태가 온다.
+	      //왼쪽은 오른쪽에 있는 값을 꺼내서 저장할 변수가 온다.
+	      //타입은 오른쪽에 들어있는 배열, 리스트 등의 타입을 따른다.
+		  //for(대입받을 변수정의(자료형 변수명): 배열명)
+		  //인덱스(int i=0;)를 사용하지 못한다.
+		  //배열이나 ArrayList값을 사용할 수 있지만 수정할 수 없다.
+	      
+		
+		//일반 배열 원소 추출
+		String[] arr = {"1-1","1-2","1-3","1-4","1-5"};
+		for(String s : arr) {
+		 System.out.println("s는 "+ s);
+				  
+		}
+		//2차원배열 원소추출
+		String[][] arr1 = {{"1-1","1-2","1-3","1-4","1-5"},{"2-1","2-2","2-3","2-4","2-5"}};
+ 		
+		for(String[] arrs : arr1) {
+			for(String s1 : arrs) {
+				System.out.println(s1);
+			}
+		}
+		
+		for(String key: keys){
+			System.out.println(key + " : " + map.get(key));
+		}
+		
+		
+		//회원테이블
+		//아이디,비밀번호,이름,전화번호
+		//1. 테이블을 해시맵에 넣기
+		HashMap<String,String> user = new HashMap();
+		//2. 저장시 put.과 key지정
+		user.put("id", "admin");
+		user.put("password","admin123");
+		user.put("mane", "관리자");
+		user.put("tel", "010-1111-2222");
+		//3.해시맵 들어갈 1줄 만들기(1명의 회원)
+		System.out.println(user);
+		
+		
+		HashMap<String, String> user2 = new HashMap<>();
+		user2.put("id", "subadmin");
+		user2.put("password","subadmin");
+		user2.put("mane", "sub관리자");
+		user2.put("tel", "010-1123-2323");
+		System.out.println(user2);
+		
+		//ArrayList를 만들어 하나의 테이블에 담음
+		
+		ArrayList<HashMap<String, String>> table = new ArrayList<>();
+		table.add(user);
+		table.add(user2);
+		System.out.println("\n" + table);
+		
+		
+//		Case2
+//		ArrayList<HashMap<String, String>> table = new ArrayList<>();
+		System.out.println(table);
+		
+		HashMap<String, String> user3 = new HashMap<>();
+		user3.put("id", "admin");
+		user3.put("password", "admin123");
+		user3.put("mane", "관리자");
+		user3.put("tel", "010-1234-1234");
+		
+		table.add(user);
+		
+		//회원 1명의 데이터가 담긴 HashMap을 하나 더 만들어주세요.
+		user3 = new HashMap<>();
+		user3.put("id", "asdf");
+		user3.put("password", "qwer");
+		user3.put("name", "홍길동");
+		user3.put("tel", "010-1212-3434");
+		
+		
+	
+	}
+
+}
