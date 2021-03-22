@@ -1,0 +1,60 @@
+package k_jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
+public class JDBC2 {
+
+	public static void main(String[] args) {
+		//DB 접속정보 
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "TEST";
+		String password = "java";
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null; //SELECT가 아닌경우 ResultSet 불필요.
+
+		try{
+
+			con  = DriverManager.getConnection(url,user,password);
+			String sql = "SELECT * FROM CART WHERE CART_MEMBER = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, "a001"); //(1인덱스, 1인덱스에 a001이라는 값을 넣겠다) 
+			//varchar2타입이 많기에 setString
+//			ps.setInt(parameterIndex, x);
+//			ps.setDate(parameterIndex, x);
+//			ps.setObject(parameterIndex, x);
+
+			rs = ps.executeQuery();//select인 경우 executeQuery 나머지는 executeUpdate
+			//리턴값의 차이다. rs = select리턴값 int
+			
+			rs.getMetaData();
+			//메타데이터: 데이터에 대한 데이터(컬럼명,컬럼,몇로우,등의 정보)
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+
+			//데이터 추출
+			while(rs.next()){ //컬럼을 돌려
+				for(int i = 1; i<=columnCount; i++){ //컬럼안의 하나하나를 돌려
+					Object value =rs.getObject(i);//컬럼값이 다를 경우 getObject
+					System.out.print(value + "\t");
+				}
+				System.out.println();
+			}
+		}
+			catch (SQLException e) {
+			e.printStackTrace();
+		} finally {//사용역순으로 닫음
+			if(rs!= null) try {rs.close();} catch (Exception e) {}
+			if(rs!= null) try {ps.close();} catch (Exception e) {}
+			if(rs!= null) try {con.close();} catch (Exception e) {}
+	}
+
+	}
+}
