@@ -1,0 +1,56 @@
+package k_jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class JDBCUpdate {
+
+	public static void main(String[] args) {
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "TEST";
+		String password = "java";
+
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			// 쿼리생성
+//			String sql = "UPDATE MEMBER SET MEM_HP = ?" + ", MEM_MAIL = ?"
+//					+ " WHERE MEM_ID = ?";
+//			ps = con.prepareStatement(sql);
+//			ps.setObject(1, "010-1234-5678");
+//			ps.setObject(2, "something@naver.com");
+//			ps.setObject(3, "a001");
+//			// ?개수만큼 set값을 써줘야해
+
+			String sql = "INSERT INTO TB_JDBC_BOARD (BOARD_NO,TITLE,CONTENT,USER_ID,REG_DATE"
+					+"VALUES(("
+					+ "SELECT NVL(MAX(BOARD_NO),0) + 1 "
+					+ "FROM TB_JDBC_BOARD,?,?,?,SYSDATE)";
+
+			con.prepareStatement(sql);
+			ps.setObject(1, "제목");
+			ps.setObject(2, "내용");
+			ps.setObject(3, "a001");
+			
+			int result = ps.executeUpdate();
+			System.out.println("영향받은 행의 수: " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (ps != null)
+				try {
+					ps.close();
+				} catch (Exception e) {
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (Exception e) {
+				}
+		}
+	}
+}
