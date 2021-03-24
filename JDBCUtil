@@ -1,0 +1,103 @@
+package k_jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class JDBCUtil {
+	//싱글톤 패턴: 인스턴스의 생성을 제한하여 하나의 인스턴스만 사용하는 디자인 패턴
+	private JDBCUtil(){
+		//다른클래스에서 객체생성을 막도록 private를 붙여줌.
+	}
+	
+	//클래스를 다른클래스에서 사용하려면 객체를 생성해 사용.
+	//클래스가 여러개면 여러개서 하기 때문에 똑같은 클래스 객체가 여러개
+	//여러개 객체를 생성을 막고싶어. 메모리절약
+	//객체를 하나만 만들고 싶을 때! 싱글톤
+	//객체 생성 뒤 빌려주는 역할
+	//
+	
+	//인스턴스 보관할 변수
+	private static JDBCUtil instance;
+
+	//객체 생성하여 인스턴스 빌려주는 메소드
+	public static JDBCUtil getInstance(){
+		if(instance == null){
+			instance = new JDBCUtil();
+		}
+		return instance;
+	}
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String user = "TEST";
+	String password = "java";
+
+	
+	Connection con = null;	//연결된 정보
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+	
+	/*
+	 * 1.조회결과가 1줄인경우 selectOne 메소드사용
+	 * Map<String,Object> selectOne(String sql)
+	 * Map<String,Object> selectOne(String sql, List<Object> param)
+	 * 
+	 * 2.조회결과가 여러줄인경우 selectList 메소드사용
+	 * -sql ?의 들어 갈 값을 순서대로 List에 담아 param으로 넘김
+	 * List<Map<String,Object>> selectList(String sql)
+	 * List<Map<String,Object>> selectList(String sql, List<Object> parm)
+	 * 
+	 * 3.insert,delete,update 쿼리에 사용시 int update 메소드 사용
+	 *-sql이 쿼리고 List에 담아 param으로 넘김
+	 * int update(String sql)
+	 * int update(String sql,List<Object>param)
+	 * 
+
+	 *
+	 */
+	
+	public List<Map<String, Object>> selectList(String sql, List<Object> param){
+		//데이터베이스만들기
+		//쿼리실행
+		//담고 리턴
+		
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		//1.연결
+ 
+		try {
+			con = DriverManager.getConnection(url,user,password);
+			ps=con.prepareStatement(sql);
+			for(int i = 0; i<param.size(); i++){
+				ps.setObject(i+1,param.get(i));//?는 +1
+			}
+			//2.실행
+			rs = ps.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while(rs.next()){
+				Map<String,Object>row = new HashMap<String,Object>();
+				for(int i =1; i<=columnCount; i++){
+					row.put(metaData.getColumnName(i),rs.getObject(i)); //key 컬럼명 , value 컬럼값
+				}
+				//리스트담기
+				list.add(row);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {//사용역순으로 닫음
+			if(rs!= null) try {rs.close();} catch (Exception e) {}
+			if(rs!= null) try {ps.close();} catch (Exception e) {}
+			if(rs!= null) try {con.close();} catch (Exception e) {}
+		}
+		return list;
+	}
+	
+}
