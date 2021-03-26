@@ -1,0 +1,119 @@
+package k_jdc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class JDBCUtil {
+//   0323
+//   싱글톤 패턴: 인스턴스의 생성을 제한하여 하나의 인스턴스만 사용하는 디자인 패턴
+   
+   //객체 생성을 막기 위해 생성자 앞에 private을 붙여준다.
+   private JDBCUtil(){
+      
+   }
+   
+   //인스턴스를 보관할 변수
+   private static JDBCUtil instance;
+                     //객체를 생성해서 빌려주는 메서드
+   
+   //인스턴스를 빌려주는 메서드
+   public static JDBCUtil getInstance(){
+      if(instance == null){
+         instance = new JDBCUtil();
+      }
+      return instance;
+   }
+   
+   String url = "jdbc:oracle:thin:@localhost:1521:xe";
+   String user = "pc03";
+   String password = "java";
+   
+   Connection con = null;
+   PreparedStatement ps = null;
+   ResultSet rs = null;
+/*
+   조회의 결과가 한줄일 때 사용한다.
+   1. Map<String, Object> selectOne(String sql)
+   2. Map<String, Object> selectOne(String sql, List<Object> param)
+                          //쿼리         //물음표의 값을 순서대로 받아서 List에 집어넣는 
+   조회의 결과가 여러줄일 때 사용한다.
+   3. List<Map<String, Object>> selectList(String sql)
+   4. List<Map<String, Object>> selectList(String sql, List<Object> param)
+                              //쿼리                 //물음표에 들어갈 값   
+   select외에 나머지 쿼리를 사용할 때 update 메소드를 사용한다.
+   5. int update(String sql)
+   6. int update(String sql, List<Object> param)
+            //쿼리               //물음표에 들어갈 값
+*/
+   
+   //4번을 만들어보았다.
+   
+   public List<Map<String, Object>> selectList(String sql, List<Object> param){
+      List<Map<String, Object>> list = new ArrayList<>();
+      
+      try {
+         
+         //오라클 연결
+         con = DriverManager.getConnection(url, user, password);
+      
+         //쿼리 준비
+         ps = con.prepareStatement(sql);
+            //우리는 이미 파라미터에 쿼리가 있기 때문에 여기에 쿼리를 바로 넣어줄 수 있다.
+         
+         //?값 세팅
+         for(int i = 0; i <param.size() ; i++){
+            ps.setObject(i + 1, param.get(i));
+         }
+         
+         //쿼리 실행
+         rs = ps.executeQuery();
+         
+         
+         //메타 데이터
+         ResultSetMetaData metaData = rs.getMetaData();
+         int columnCount = metaData.getColumnCount();
+         
+         //결과 추출
+         //select 1은 while문 사용하지 않아도 된다.
+         //여러문장이기 때문에 while문 사용한 것
+         //다만 1줄이라할지라도 rs.next를 선언해주긴 해야 한다.
+         while(rs.next()){
+            Map<String, Object> row = new HashMap<String, Object>();
+            for(int i = 1; i < columnCount; i++){
+               //컬럼명은 메타데이터에서 가져온다.
+               row.put(metaData.getColumnName(i), rs.getObject(i));
+               //키와 값을 저장하는 해쉬맵(컬럼명(= key), 컬럼값(=value))
+               //for문 다 끝나면 해쉬맵에 한줄의 모든 데이터가 들어간다.
+            }
+            //한줄의 데이터를 list에 넣어준다.
+            list.add(row);
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         if(rs != null) try { rs.close(); } catch(Exception e) {}
+         if(ps != null) try { ps.close(); } catch(Exception e) {}
+         if(con != null) try { con.close(); } catch(Exception e) {}
+      }
+      
+      //위에서 만든 리시트를 리턴해준다
+      return list;
+      
+   }
+   
+   
+   
+   
+   
+   
+   
+
+}
