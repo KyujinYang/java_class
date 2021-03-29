@@ -1,0 +1,271 @@
+package c_statement;
+
+import java.util.Scanner;
+
+public class memo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+		int i = 0;
+		int j = 0;
+		int z = 0;
+			
+		while(true){
+			i =(int)(Math.random()*9)+1;
+				if(i!=j && i!=z)
+			j =(int)(Math.random()*9)+1;
+				if(i!=j && i!=z)
+			z =(int)(Math.random()*9)+1;
+				if(i!=j && i!=z)
+				
+					
+			System.out.print("값> " + i + ", "+ j +", "+ z); //b라는 값을 출력 
+					
+	
+		
+		
+		Scanner sc = new Scanner(System.in); //입력을 받기 위한 메소드
+		
+	
+		
+		
+		
+	
+		
+		System.out.println("게임 시작!");
+		System.out.println("0~9까지의 숫자를 입력");
+		System.out.print("숫자1을 입력하세요> ");
+		int num1 = Integer.parseInt(sc.nextLine()); 
+		System.out.print("숫자2를 입력하세요> ");
+		int num2 = Integer.parseInt(sc.nextLine());
+		System.out.print("숫자3을 입력하세요> ");
+		int num3 = Integer.parseInt(sc.nextLine());//int b에 입력+하는 숫자를 담는 것		
+		
+		
+		int out =0;
+		int ball = 0;
+		int strike = 0;
+		int rs1 = 0;
+		int rs2 = 0;
+		int rs3 = 0;
+		rs1 = strike;
+		rs2 = ball;
+		rs3 = out;
+		String frs = "Strike> " + strike + " Ball> "+ ball + " Out> "+ out;
+		
+		while(true){
+		if(i==num1) strike++;
+		else if(i==num2 || i==num3)
+			ball++;
+		else out++;
+		
+		
+		if(j==num2) strike++;
+		else if(j==num1 || j==num3)
+			ball++;
+		else out++;
+		
+		
+		if(z==num3) strike++;
+		else if(z==num1 || z==num2)
+			ball+=1;
+		else out++;
+		
+//		else if(i==num2 || i==num3)
+//			ball++;
+//		else if(j==num1 || j==num3)
+//			ball++;
+//		else if(z==num1 || z==num1)
+//			ball++;
+//	
+//		else out++;
+//		else if(i!=num1 || i!= num2 || i!=num3)
+//			out++;
+//		else if(j!= num1 || j!=num3)
+//			out++;
+//		else if(z!= num2 || z!=num3)
+//			out++;
+		System.out.println("Strike> " + strike + " Ball> "+ ball + " Out> "+ out);
+		break;
+		}
+		
+		
+		
+		}
+		
+//		while(true){
+//		if(i==num1 && j==num2 && j==num3){
+//			strike+= 1;
+//		}else if(i!=num1 && i!=num2 && i!=num3){		
+//		    out += 1;
+//		}else if(j!=num1 && j!=num2 && j!=num3){
+//			ball+= 1;
+//		}if(j==num2){
+//			strike++;
+//		}else if(j!=num2 && j==num1 || j==num3){		
+//		    ball++;
+//		}else{
+//			out++;
+//		}if(z==num3){
+//			strike++;
+//		}else if(z!=num3 && z==num1 || z==num2){		
+//		    ball++;
+//		}else{
+//			out++;
+//		}System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//		break;
+//		}
+//		}
+//			while(true){
+//				
+//						for(strike =0; i==num1 & j==num2 & z==num3; strike++)
+//							System.out.println(frs);
+//							
+//					//3s
+//					if(i==num1&&j==num2&&z==num3){
+//						rs1 = strike+=3;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//						break;
+//					//3b
+//					}else if(i!=num1 && i==num2 || i==num3 &&j!=num2&& j==num1 || j==num3 &&z!=num3 && z==num1 || z==num2){
+//						rs2= ball+= 3;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//								
+//						
+//					//3o	
+//					}else if(z!=num1 ||z !=num2 || z!=num3 && i!=num1 || i!=num2 || i!=num3 && j!=num1 || j!=num2 || j!=num3){
+//						rs3 = out +=3;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);						
+//						
+//					//1s2b
+//					}else if(i==num1 && j==num1 || j==num3 && z==num1 || z==num2){
+//						rs1 = strike +=1;
+//						rs2 = ball +=2;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(j==num2 && i==num2 || i==num3 && z==num1 || z==num2){
+//						rs1 = strike +=1;
+//						rs2 = ball +=2;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(z==num3 && i==num2 || i==num3 && j==num1 || j==num2){
+//						rs1 = strike +=1;
+//						rs2 = ball +=2;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//						
+//					//1s2o
+//					}else if(i==num1 && j!=num2 || j!=num1 || j!=num3 && z!=num1 || z!=num2 || z!=num3){
+//						rs1 = strike +=1;
+//						rs3 = out +=2;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(j==num2 && i!=num1 || i!=num2 || i!=num3 && z!=num1 || z!=num2 || z!=num3){
+//						rs1 = strike +=1;
+//						rs3 = out +=2;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(z==num3 && i!=num1 || i!=num2 || i!=num3 && j!=num1 || j!=num2 || j!=num3){
+//						rs1 = strike +=1;
+//						rs3 = out +=2;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//
+//					//2s1b
+//					}else if(i==num1 && j==num2 && z== num1 || z==num2){
+//						rs1 = strike +=2;
+//						rs2 = ball +=1;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(j==num2 && z==num3 && i==num2 || i==num3){
+//						rs1 = strike +=2;
+//						rs2 = ball +=1;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(i==num1 && z==num3 && j==num1 || j==num3){
+//						rs1 = strike +=2;
+//						rs2 = ball +=1;
+//						
+//						
+//						
+//					//2s1o	
+//					}else if(z==num3 && i==num1 && j!= num2 || j!=num1 || j!=num3){
+//						rs1 = strike +=2;
+//						rs3 = out +=1;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(j==num2 && i==num1 && z!=num3 || z!=num1 || z!=num2){
+//						rs1 = strike +=2;
+//						rs3 = out +=1;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}else if(j==num2 && z==num1 && i!=num1 || i!=num2 || i!=num3){
+//						rs1 = strike +=2;
+//						rs3 = out +=1;
+//						System.out.println("Strike> " + rs1 + " Ball> "+ rs2 + " Out> "+ rs3);
+//					}
+//						System.out.print("숫자1를 입력하세요> ");
+//						num1 = Integer.parseInt(sc.nextLine()); 
+//						System.out.print("숫자2를 입력하세요> ");
+//						num2 = Integer.parseInt(sc.nextLine());
+//						System.out.print("숫자3을 입력하세요> ");
+//						num3 = Integer.parseInt(sc.nextLine());	
+					
+//			else if(i==num1 || j==num2 || z==num3 && i!=num2 && i!=num3 && j!= num1 && j!=num3 && z!=num1 && z!=num2 ){
+//				rs1 = strike+1;
+//				rs3 = out+2;
+//				System.out.println("Strike> " + ++rs1 + " Ball> "+ ++rs2 + " Out> "+ ++rs3);
+//			}else if((i!=num1 && i==num2 || i==num3) &&(j!=num2&& j==num1 || j==num3) &&(z!=num3 && z==num1 || z==num2)){
+//				rs2= ball+3;
+//				System.out.println("Strike> " + ++rs1 + " Ball> "+ ++rs2 + " Out> "+ ++rs3);
+//			}
+
+						
+//					}
+//				}
+
+//			if(i=\=num1 && j==num2 && z== num3){
+//				System.out.println(strike++);
+//				}else if(i==num2 || i==num3 || j==num1 || j==num3 || z==num1 || z==num2 ){
+//					System.out.println(i++);
+//					System.out.println(ball+=1);
+//					System.out.println(rs);
+//				}else if(i==num1 && j==num1 || j==num3 || z==num1 || z==num2 ){
+//						System.out.println(strike+=1);
+//						System.out.println(ball+=2);
+//				}else if(j==num2 && i==num2 || i==num3 || z==num1 || z==num2 ){
+//						System.out.println(strike+=1);
+//						System.out.println(ball+=2);
+//				}else if(z==num3 && i==num2 || i==num3 || j==num1 || z==num2 ){
+//					System.out.println(strike+=1);
+//					System.out.println(ball+=2);
+//				}else if(i==num1 && j==num2 && z==num1 || z==num2){
+//					System.out.println(strike+=2);
+//					System.out.println(ball+=1);
+//				}else if(i==num1 && z==num3 && j==num1 || j==num3){
+//					System.out.println(strike+=2);
+//					System.out.println(ball+=1);
+//				}else if(j==num2 && z==num3 && i==num2 || i==num3){
+//					System.out.println(strike+=2);
+//					System.out.println(ball+=1);
+//				}else if(i==num1 || j==num2 || z==num3 && i!=num2 || i!=num3 || j!= num1 || j!=num3 || z!=num1 || z!=num2 ){
+//					System.out.println(strike+=1);
+//					System.out.println(out+=2);
+//				}else if(i==num1 && j!=num1 || j!= num2 || j!=num3 ){
+//					System.out.println(strike+=1);
+//					System.out.println(out+=2);
+//					System.out.println(rs);
+//				}
+//				
+//				}else if(i)
+//				if(i!=num1 && j!=num2 && z ==num3){
+//				System.out.println(ball +=1);
+//				
+				
+			
+			
+				
+			
+				
+
+			}
+	}
+	
+
+		
+				
+		
+	
+
