@@ -1,0 +1,182 @@
+package service;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import util.ScanUtil;
+import util.View;
+import controller.Controller;
+import dao.AdminDao;
+
+public class AdminService {
+	// user관련 일을 하는 클래스
+
+	// 1.싱글톤 패턴 구성-굳이 여러개 객체 필요X
+	private AdminService() {
+	}
+
+	private static AdminService instance;
+	private static Map<String, Object> adminMap = null; // 회원가입 시 입력한 정보들을 저장한다.
+
+	public static AdminService getInstance() {
+		if (instance == null) {
+			instance = new AdminService();
+		}
+		return instance;
+	}
+
+	private AdminDao adminDao = AdminDao.getInstance();
+
+	// 조건
+	// 아이디 중복 확인 생략
+	// 비밀번호 확인 생략
+	// 정규표현식(유효성 검사) 생략
+		
+	
+	/*
+	 * 회원가입
+	 */
+	public int join() { // int 리턴타입(다음타입리턴을 위해 필요)
+		adminMap = new HashMap<>();
+		
+		System.out.println("==============관리자회원가입===============");
+		/*
+		 * 1. 관리자 아이디 부여
+		 */
+		// while
+		while (true) {
+			Pattern p = null;
+			Matcher m = null;
+			adminMap = new HashMap<>();
+
+			Map<String, Object> adminIdMap = adminDao.selectAdminLogin();
+			if(adminMap.get("MNGR_ID") == null) {
+			String mngrId = (String)adminIdMap.get("MNGR_ID");
+				adminMap.put("MNGR_ID", (String)mngrId);
+				System.out.println("관리자아이디 : " + (String)mngrId);
+			}
+			
+			/*
+			 * 2. 매장 이름, 매장 주소, 매장 전화번호
+			 */
+
+			if(adminMap.get("STR_NM") == null) {
+				System.out.print("매장 이름> ");
+				String strNm = ScanUtil.nextLine();
+				System.out.println(strNm);
+				adminMap.put("STR_NM", strNm);
+			}
+			
+			
+			if(adminMap.get("STR_ADRES") == null) {
+				System.out.print("매장 주소> ");
+				String strAdres = ScanUtil.nextLine();
+				adminMap.put("STR_ADRES", strAdres);
+				
+			}
+			if(adminMap.get("STR_TELNO") == null) {
+				System.out.print("매장 전화번호> ");
+				String strTelno = ScanUtil.nextLine();
+				adminMap.put("STR_TELNO", strTelno);
+			}	
+			
+			/*
+			 * 3. 관리자 이름, 관리자 비밀번호
+			 */	
+			if(adminMap.get("MNGR_NM") == null) {
+				System.out.print("관리자 이름>  ");
+				String mngrNm = ScanUtil.nextLine();
+				adminMap.put("MNGR_NM", mngrNm);
+			}	
+			if(adminMap.get("STR_PW") == null){				
+				System.out.print("비밀번호를 입력해주세요(특수문자 한글자이상)> ");
+				String mngrPw1 = ScanUtil.nextLine();
+				String regex2 = "([a-zA-Z0-9가-].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])";
+				// 문자,숫자,특수문자가 모두 포함되는 비밀번호 입력
+				p = Pattern.compile(regex2);
+				m = p.matcher(mngrPw1); // str과 matcher 값이 같으면 true
+				if (!m.matches()) { //false			
+					System.out.println("틀렸습니다");				
+					continue;
+				}else{ //true(형식이 맞을 경우)
+					boolean chk = false;
+					while(true){
+						chk = getChkPwd(mngrPw1);						
+						if(chk==true){
+							System.out.println("정상적으로 입력되었습니다");
+							break;
+						
+						}
+					}
+				}
+				adminMap.put("MNGR_PW", mngrPw1);
+			
+		int result = adminDao.insertAdmin(adminMap);
+				
+			adminMap.put("MNGR_PW", mngrPw1);
+				
+			if (0 < result) {
+				System.out.println("회원가입 성공");
+			} else {
+				System.out.println("회원가입 실패");
+			}
+			}
+			break;
+		}
+			return View.HOME;	
+		}
+	
+			
+	public boolean getChkPwd(String source){
+		System.out.print("비밀번호 확인> ");
+		String mngrPw2 = ScanUtil.nextLine();
+		if (source.equals(mngrPw2)) { //맞으면
+			return true;
+		}
+		else{ //다르면
+		   return false;
+		}
+	}
+	
+
+	public int login() {
+		
+		
+		while (true) {
+			System.out.println("관리자 아이디를 입력해주세요(MANAGER_    > ");
+			String mngrId = ScanUtil.nextLine();
+			String regex1 = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; // 영문으로 시작, 특수문자 '_'만 허용, 5 ~ 12자 이하
+			Pattern p = Pattern.compile(regex1);
+			Matcher m = p.matcher(mngrId); // str과 matcher 값이 같으면 true
+			if (!m.matches()) {
+				System.out.println("아이디를 다시 입력해주세요> ");
+				continue;
+			}
+
+		System.out.print("비밀번호>");
+		String mngrPw = ScanUtil.nextLine();
+		String regex2 = "([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])";
+		// 문자,숫자,특수문자가 모두 포함되는 비밀번호
+		p = Pattern.compile(regex2);
+		m = p.matcher(mngrPw); // str과 matcher 값이 같으면 true
+		if (!m.matches()) {
+			System.out.println("비밀번호가 일치하지 않습니다.");
+			continue;
+		}
+
+		Map<String, Object> admin = adminDao.selectAdmin(mngrId, mngrPw);
+		
+		if (admin == null) {
+			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다");
+			continue;
+		} else {
+			System.out.println("로그인 성공! ");
+			Controller.AdminLoginUser = admin;
+			System.out.println("관리자"+ mngrId+ "님 환영합니다! ");
+		}
+		return View.HOME;
+		}
+	}
+}
