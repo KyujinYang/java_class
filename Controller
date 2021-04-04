@@ -1,94 +1,217 @@
-package controller;
+package service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import service.BoardService;
-import service.UserService;
 import util.ScanUtil;
 import util.View;
+import controller.Controller;
+import dao.AdminDao;
 
-public class Controller {
+public class AdminService {
+	// user관련 일을 하는 클래스
 
-	public static void main(String[] args) {
-		/*
-		 * 발표순서: 조 소개> 주제 소개> 주제 선정 배경> 메뉴 구조 > 시연 > 소감
-		 * 발표인원: 발표자 1명, ppt 및 시연 도우미 1명
-		 * 
-		 * 
-		 * ======================================
-		 * Controller: 화면 이동
-		 * Service: 화면 기능
-		 * Dao: 쿼리작성(Data Access Object)
-		 * ======================================
-		 * 시작일: 03/30 발표일: 04/05
-		 * 설계:~2일
-		 * 어떤 주제를 가지고 할는지:
-		 * 주제 선정이유 
-		 * 메뉴 구조
-		
-		 * ppt안에도 소감 넣기
-		 * -------------------------------------
-		 */
-		//main메소드에선 전역변수 사용하기 힘들다 사용시 static 붙이기
-		new Controller().start(); //객체생성 후 start 메소드 만들기
+	// 1.싱글톤 패턴 구성-굳이 여러개 객체 필요X
+	public AdminService() {
 	}
-	
-	public static Map<String, Object> LoginUser; //변수만들어 로그인할 때 마다 저장 게시판 글 쓸 때 회원id를 LoginUser변수에서 가져온다.
-	private BoardService boardService = BoardService.getInstance();
-	private UserService userService = UserService.getInstance();
-	
-	
-	private void start() {
-		//static 붙이지 않고 메소드를 편하게 사용하기 위해 위에서 객체생성 후 사용
-		//리턴: 모든 메소드가 끝나면 사용(다음화면 이동 시)
-		//화면에 대한 내용은 상수를 만들어 이름 사용 util Package> View(상수로 모든 화면 정의) 1번화면: 이름1 2번화면: 이름2
+
+	private static AdminService instance;
+	private static Map<String, Object> adminMap = null; // 회원가입 시 입력한 정보들을 저장한다.
+
+	public static AdminService getInstance() {
+		if (instance == null) {
+			instance = new AdminService();
+		}
+		return instance;
+	}
+
+	private AdminDao adminDao = AdminDao.getInstance();
+
+	// 조건
+	// 아이디 중복 확인 생략
+	// 비밀번호 확인 생략
+	// 정규표현식(유효성 검사) 생략
 		
-		//start메소드 실행
-		int view = View.HOME;
+	
+	/*
+	 * 회원가입
+	 */
+	public int join() { // int 리턴타입(다음타입리턴을 위해 필요)
+		adminMap = new HashMap<>();
 		
-		while(true){//반복하며 다음화면 이동해야하기 때문에 while 사용
-			switch (view){
-				case View.HOME : view = home(); break; //home();메서드 만들기
-				case View.LOGIN :view = userService.login(); break; //호출
-				case View.JOIN: view = userService.join(); break;
-//				case View.BOARD_LIST : view = boardService.boardList(); break;
+		System.out.println("==============관리자회원가입===============");
+		/*
+		 * 1. 관리자 아이디 부여
+		 */
+		// while
+		while (true) {
+			Pattern p = null;
+			Matcher m = null;
+			
+
+			if(adminMap.get("MNGR_ID") == null) {
+				Map<String, Object> adminIdMap = adminDao.selectAdminLogin();
+				String mngrId = (String)adminIdMap.get("MNGR_ID");
+					adminMap.put("MNGR_ID", mngrId);
+					System.out.println("관리자아이디 : " + (String)mngrId);
 			}
+			
+			/*
+			 * 2. 매장 이름, 매장 주소, 매장 전화번호
+			 */
+
+			if(adminMap.get("STR_NM") == null) {
+				System.out.print("매장 이름> ");
+				String strNm = ScanUtil.nextLine();
+				System.out.println(strNm);
+				adminMap.put("STR_NM", strNm);
+			}
+			
+			
+			if(adminMap.get("STR_ADRES") == null) {
+				System.out.print("매장 주소> ");
+				String strAdres = ScanUtil.nextLine();
+				adminMap.put("STR_ADRES", strAdres);
+				
+			}
+			if(adminMap.get("STR_TELNO") == null) {
+				System.out.print("매장 전화번호> ");
+				String strTelno = ScanUtil.nextLine();
+				adminMap.put("STR_TELNO", strTelno);
+			}	
+			
+			/*
+			 * 3. 관리자 이름, 관리자 비밀번호
+			 */	
+			if(adminMap.get("MNGR_NM") == null) {
+				System.out.print("관리자 이름>  ");
+				String mngrNm = ScanUtil.nextLine();
+				adminMap.put("MNGR_NM", mngrNm);
+			}	
+			if(adminMap.get("MNGR_PW") == null) {		
+				System.out.print("비밀번호를 입력해주세요(특수문자 한글자이상)> ");
+				String mngrPw1 = ScanUtil.nextLine();
+				String regex2 = "([a-zA-Z0-9가-].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])";
+				// 문자,숫자,특수문자가 모두 포함되는 비밀번호 입력
+				p = Pattern.compile(regex2);
+				m = p.matcher(mngrPw1); // str과 matcher 값이 같으면 true
+				if (!m.matches()) { //false			
+					System.out.println("틀렸습니다");
+					
+					continue;
+				}else{ //true(형식이 맞을 경우)
+					boolean chk = false;
+					while(true){
+						chk = getChkPwd(mngrPw1);						
+						if(chk==true){
+							System.out.println("정상적으로 입력되었습니다");
+							break;
+						}
+					}
+				}
+			
+				adminMap.put("MNGR_PW", mngrPw1);
+			}
+			int result = adminDao.insertAdmin(adminMap);
+			
+			// 몇개 행이 영향을 받았는지
+			
+			if (0 < result) {
+				System.out.println("회원가입 성공");
+			} else {
+				System.out.println("회원가입 실패");
+			}
+			break;
+		}
+		return View.HOME;	
+	
+	}
+			
+	public boolean getChkPwd(String source){
+		System.out.print("비밀번호 확인> ");
+		String mngrPw2 = ScanUtil.nextLine();
+		if (source.equals(mngrPw2)) { //맞으면
+			return true;
+		}
+		else{ //다르면
+		   return false;
 		}
 	}
-	private int home(){
-		System.out.println("          별찻집에 오신 것을 환영합니다                      ");
+
+	public int login() {		
+		while (true) {
+			System.out.println("관리자 아이디를 입력해주세요(MANAGER_    > ");
+			String mngrId = ScanUtil.nextLine();
+			String regex1 = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$"; // 영문으로 시작, 특수문자 '_'만 허용, 5 ~ 12자 이하
+			Pattern p = Pattern.compile(regex1);
+			Matcher m = p.matcher(mngrId); // str과 matcher 값이 같으면 true
+			if (!m.matches()) {
+				System.out.println("아이디를 다시 입력해주세요> ");
+				continue;
+			}
+			
+		System.out.print("비밀번호>");
+		String mngrPw = ScanUtil.nextLine();
+		String regex2 = "([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])";
+		// 문자,숫자,특수문자가 모두 포함되는 비밀번호
+		p = Pattern.compile(regex2);
+		m = p.matcher(mngrPw); // str과 matcher 값이 같으면 true
+		if (!m.matches()) {
+			System.out.println("비밀번호가 일치하지 않습니다.");
+			continue;
+		}
+
+		Map<String, Object> admin = adminDao.selectAdmin(mngrId, mngrPw);
+		
+		if (admin == null) {
+			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨습니다");
+			continue;
+		} else {
+			System.out.println("로그인 성공! ");
+			Controller.AdminLoginUser = admin;
+			System.out.println("관리자"+ mngrId+ "님 환영합니다! ");
+			AdminMenu();
+		}
+		return View.HOME;
+		}
+	}
+	
+	public int AdminMenu(){
+		System.out.println("          ★별찻집에 오신 것을 환영합니다★                      ");
 		System.out.println("========================================");
 		System.out.println("----------------------------------------");
-		System.out.println(" 1.로그인\t\t2.회원가입");
-		System.out.println(" 3.사이렌오더\t4.기프트\t\t5.기타");
+		System.out.println(" 1.리뷰답글      2.상품완료메시지      3.로그아웃");
 		System.out.println(" 0.종료");
 		System.out.println("----------------------------------------");
 		System.out.println("========================================");
 		System.out.println("\n원하시는 번호를 입력해주세요> ");
 		
 		int input = ScanUtil.nextInt();
-		
-		switch (input) {
-		case 1: //로그인
-			return View.LOGIN;
-			//break;//return시 종료되기에 break;를 써주면 컴파일에러발생
-		case 2: //회원가입
-			return View.JOIN;
-//		case 3: //사이렌오더
-//			return View.SIRENORDER;
-//		case 4: //기프트
-//			return View.GIFT;
-//		case 5:
-//			return View.G
-			
-		case 0://프로그램 종료
-			System.out.println("프로그램이 종료되었습니다");
-			System.exit(0);//파라미터로 날리는 이유는 종료되는 원인을 남겨주는 것임. 크게 의미x
+		if(input == 1){
+			WhatsNew w = new WhatsNew();
+	         w.WhatsNew();
 		}
-		return View.HOME; //사용자가 1,2,0번을 입력하지 않는 경우(잘못숫자입력한경우)
-						  //다시 HOME화면(현재화면)으로 리턴되기에 처음부터 시작되어 반복
-	}
+		else if(input == 2){
+			MessageService m = new MessageService();
+			m.AdminMessage();
+		}
+		else if(input == 3){
+			System.out.println("로그아웃 되었습니다.");
+			Controller.AdminLoginUser = null;
+			return View.HOME;
+		}
+		else if(input == 0){
+			System.out.println("프로그램이 종료되었습니다");
+			System.exit(0);
+		}
+		return AdminMenu();
+	}	
 }
-
-//회원테이블만들기
-//회원가입-SERVICE (화면 기능구현)
